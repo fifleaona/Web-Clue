@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Cluedo: Disney Princess Edition
+		</title>
+		
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">	
+		<meta content="utf-8" http-equiv="encoding">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link type="text/css" rel="stylesheet" href="../css/style.css" />
+		<link type="text/css" rel="stylesheet" href="../css/game.css" />
+		<link type="text/css" rel="stylesheet" href="../css/game_known.css" />
+		<link type="text/css" rel="stylesheet" href="../css/game_pi.css" />
+		<link type="text/css" rel="stylesheet" href="../css/game_board.css" />
+	</head>
+	
+	<body>
+		<header class="adjustForKnown" id="banner">
+			<div id="logo">
+			</div>
+			
+			<div id="links">
+			</div>
+		</header>
+		
+		<div id="known">
+			<div id="list">
+				<canvas id="knownList"></canvas>
+			</div>
+			
+			<div id="arrowK">
+				<input type="button" id="toggleList" name="toggleList" class="toggle" value="<" />
+			</div>
+		</div>
+		
+		<div id="gameBoard">
+			<canvas id="board"></canvas>
+		</div>
+		
+		<div id="playerInterface" class="adjustForKnown">
+			<div id="arrowP">
+				<input type="button" id="toggleHand" name="toggleHand" class="toggle" value="v" />
+			</div>
+			
+			<div id="character">
+			</div>
+			
+			<div id="hand">
+			</div>
+		</div>
+	
+		<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="../js/jquery-ui.js"></script>
+		<script type="text/javascript" src="../js/canvasFunctions.js"></script>
+		<script type="text/javascript" src="../js/inits.js"></script>
+		<script type="text/javascript" src="../js/resizeFns.js"></script>
+		<script type="text/javascript" src="../js/showHide.js"></script>
+		<script type="text/javascript" src="../js/cards.js"></script>
+		<script type="text/javascript" src="../js/game.js"></script>
+	</body>
+</html>

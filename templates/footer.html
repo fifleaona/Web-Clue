@@ -1,0 +1,56 @@
+	</section>
+	
+	<footer>
+	</footer>
+	
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<?php
+	
+		
+		
+	  print '<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>';
+	  print '<script type="text/javascript" src="../js/jquery-ui.js"></script>';
+	  
+		switch($file[0])
+		{
+			case 'index':
+				if($_SERVER['REQUEST_METHOD'] == 'POST')
+				{
+					if(empty($_POST['nPlayers']) || empty($_POST['gameID']))
+					{
+						if(!empty($_POST['submitGameID']))
+						{
+							print '<script type="text/javascript"> $("#joinGame").slideToggle() </script>';
+						}
+						else
+						{
+							print '<script type="text/javascript"> $("#numPlayers").slideToggle() </script>';
+						}
+					}
+				}
+				break;
+				
+			case 'selection':
+				break;
+				
+			case 'game':
+			  print '<script type="text/javascript" src="../js/classes/global.js"></script>';
+			  print '<script type="text/javascript" src="../js/classes/point.js"></script>';
+			  print '<script type="text/javascript" src="../js/classes/canvas.js"></script>';
+			  print '<script type="text/javascript" src="../js/classes/cards.js"></script>';
+			  print '<script type="text/javascript" src="../js/classes/player.js"></script>';
+			  print '<script type="text/javascript" src="../js/classes/game.js"></script>';
+		      break;
+		}
+	  print '<script type="text/javascript" src="../js/' . $file[0] . '.js"></script>';
+		
+	?>
+	
+</html>
+
+<?php
+	ob_end_flush();
+?>

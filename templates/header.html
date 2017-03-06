@@ -1,0 +1,66 @@
+<?php
+  ob_start();
+  session_start();
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charsest=utf-8" />
+  <meta name="pinterest" content="nopin" />
+  <meta name="author" content="FionArr" />
+  <meta name="description" content="Clue game re-skinned with Disney princesses." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+  <?php
+    $filename = basename($_SERVER['PHP_SELF']);
+    $file = explode('.', $filename);
+    
+	print '<link rel="stylesheet" type="text/css" href="../css/style.css" />';
+    print '<link rel="stylesheet" type="text/css" href="../css/' . $file[0] . '.css" />';
+		
+    // add option for dyslexie?
+  ?>
+		
+  <title>
+    <?php
+      if (defined('TITLE'))
+      {
+        print TITLE;
+      }
+      else
+      {
+        print 'Disney Princess Clue';
+      }
+    ?>
+  </title>
+</head>
+	
+<body>
+  <header id="banner">
+    <div id="logo">
+      <h1>Clue:</h1> <br />
+      <h2><span class="disney">Disney Princess</span> Edition</h2>
+    </div>
+			
+    <nav>
+      <a href="#" id="menuIcon"></a>
+      
+	  <div id="links">
+        <ul>
+          <li><a href="#">rules</a></li>
+        </ul>
+      </div>
+				
+      <div id="playerList">
+        <?php
+          if($_SESSION && isset($_SESSION['nPlayers']))
+          {
+            print '<p>#players: ' . $_SESSION['nPlayers'] . '</p>';
+          }
+        ?>
+      </div>
+    </nav>
+  </header>
+		
+  <section id="main">

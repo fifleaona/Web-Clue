@@ -1,0 +1,24 @@
+#selectChar p
+{
+	display: inline;
+}
+
+.selectCharP
+{
+	padding: 1%;
+}
+
+.taken
+{
+	border: 5px solid red;
+}
+
+#characterConfirm img
+{
+	width: 20%;
+}
+
+#characterConfirm .btn
+{
+	width: 80%;
+}

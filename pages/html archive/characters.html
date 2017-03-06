@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Cluedo: Disney Princess Edition
+		</title>
+		
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type">	
+		<meta content="utf-8" http-equiv="encoding">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<link type="text/css" rel="stylesheet" href="../css/style.css" />
+		<link type="text/css" rel="stylesheet" href="../css/char_select.css" />
+	</head>
+	
+	<body>
+		<header id="banner">
+			<div id="logo">
+			</div>
+		</header>
+		
+		<div id="chars">
+			<img src="../imgs/selection/ariel.png" id="ariel" name="ariel" class="card unselected">
+			<img src="../imgs/selection/aurora.png" id="aurora" name="aurora" class="card unselected">
+			<img src="../imgs/selection/belle.png" id="belle" name="belle" class="card selected">
+			<br />
+			<img src="../imgs/selection/jasmine.png" id="jasmine" name="jasmine" class="card unselected">
+			<img src="../imgs/selection/pocahontas.png" id="pocahontas" name="pocahontas" class="card unselected">
+			<img src="../imgs/selection/tiana.png" id="tiana" name="tiana" class="card unselected">
+		</div>
+		
+		<div id="modal">
+			<div id="modalMask">
+			</div>
+			<div id="modalContent">
+				<div class="leftalign">
+					<img src="../imgs/characters/belle.png" />
+				</div>
+				
+				<div id="question">
+					<p>Would you like to play as Belle this game?</p>
+					<p>
+						<input type="button" id="yes" name="yes" class="btn" value="Yes" />
+						<input type="button" id="no" name="no" class="btn" value="No" /> 
+					</p>
+				</div>
+			</div>
+		</div>
+	
+		<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>
+		<script type="text/javascript" src="../js/jquery-ui.js"></script>
+		<script type="text/javascript" src="../js/cookie.js"></script>
+		<script type="text/javascript" src="../js/selection.js"></script>
+	</body>
+</html>

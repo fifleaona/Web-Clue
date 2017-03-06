@@ -1,0 +1,26 @@
+#known
+{
+  background-color: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 20%; /*will change dynamically*/
+  z-index: 5;
+}
+
+#list
+{
+  height: 100%;
+  width: 95%;
+}
+
+#arrowK
+{
+  position: absolute;
+  top: 0;
+  left: 95%;
+  height: 100%;
+  width: 5%;
+  background-color: #787878;
+}

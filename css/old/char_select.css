@@ -1,0 +1,72 @@
+.card
+{
+	border: 5px solid white;
+	padding: 3px;
+}
+
+.selected
+{
+	border: 5px dotted white;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	-moz-opacity: 0.6;
+}
+
+.card:hover
+{
+	border: 5px solid grey;
+}
+
+#chars
+{
+	background: #ff00ff;
+	position: absolute;
+	text-align: center;
+	
+	top: 50%;
+	left: 50%;
+	margin: -300px 0 0 -350px;
+}
+
+#modal
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	/*display: none*/
+}
+
+#modalMask
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 15;
+	background: #000000;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	-moz-opacity: 0.6;
+}
+
+#modalContent
+{
+	position: relative;
+	padding: 15px;
+	z-index: 1600;
+	border: 5px double white;
+	overflow: hidden;
+	width: 30%;
+	top: 50%;
+	left: 50%;
+	margin: -350px 0 0 -330px;
+	background-color: grey;
+}
+
+#question
+{
+	
+}

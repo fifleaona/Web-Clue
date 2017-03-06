@@ -1,0 +1,20 @@
+body
+{
+	overflow: hidden;
+}
+
+.adjustForKnown
+{
+	position: absolute;
+	left: 20%;
+	width: 80%;
+	/* these values are dependent on the values
+		of #known. The left offset is #known's width
+		and the width is 100 - left offset. */
+}
+
+.toggle
+{
+	height: 100%;
+	width: 100%;
+}
