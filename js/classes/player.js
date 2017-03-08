@@ -4,37 +4,55 @@ function Player(name, character)
   // things that are set at the selection page
   // after character has been selected
   this.character = character; 
-  this.location = new Point();
+  this.position = new Point();
+  this.name = name;
+  
+  this.piece = {
+    canvas: null,
+	ctx: null,
+	setValues: function(w,h,i)
+	{
+	  canvas = document.createElement("canvas");
+	  canvas.id = 'canvas'+name;
+	  canvas.width = w;
+	  canvas.height = h;
+	  canvas.className = "characterPiece"
+	  ctx = canvas.getContext('2d');
+	  
+	  $('#board').append(canvas);
+	}
+  };
+  
   switch(character)
   {
     case 'ariel':
       this.color = Global.RED;
-      this.location.updatePoint(18,2);
+      this.position.updatePoint(18,2);
     break;
 			
     case 'belle':
       this.color = Global.YELLOW;
-      this.location.updatePoint(25,9);
+      this.position.updatePoint(25,9);
     break;
 			
     case 'pocahontas':
       this.color = Global.WHITE;
-      this.location.updatePoint(16,26);
+      this.position.updatePoint(16,26);
     break;
 			
     case 'tiana':
       this.color = Global.GREEN;
-      this.location.updatePoint(11,26);
+      this.position.updatePoint(11,26);
     break;
 			
     case 'jasmine':
       this.color = Global.BLUE;
-      this.location.updatePoint(2,20);
+      this.position.updatePoint(2,20);
     break;
 			
     case 'aurora':
       this.color = Global.PURPLE;
-      this.location.updatePoint(2,7);
+      this.position.updatePoint(2,7);
     break;
   };
   
@@ -106,7 +124,7 @@ function Player(name, character)
   this.drawPiece = function()
   {
     ctx.beginPath();
-    ctx.arc( (this.location.x * Global.sqrSize) - Global.radius, (this.location.y * Global.sqrSize) - Global.radius, 0, 2*Math.PI, true);
+    ctx.arc( (this.position.x * Global.sqrSize) - Global.radius, (this.position.y * Global.sqrSize) - Global.radius, 0, 2*Math.PI, true);
   }
   
   this.getHandArr = function()

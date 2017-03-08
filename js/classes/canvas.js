@@ -11,18 +11,18 @@ function Canvas()
   this.brushWidth = 3;
 
   // canvas variables
-  this.canvas = $(id);
+  this.canvas = document.getElementById(id);
   this.ctx = this.canvas.getContext("2d");
   this.img = new Image();
   this.width = 0;
   this.height = 0;
 	
   // function declarations
-  this.initialize = function(img_src, div){};
+  //this.initialize = function(img_src, div){};
   this.togglePaint = function(){};
 	
   // function definitions
-  this.initialize(img_src, div)
+  this.initialize = function(img_src, div)
   {
     this.width = $(div).width();
     this.height = $(div).width();
@@ -49,7 +49,7 @@ function Canvas()
     }
   }
 	
-  this.paint(event)
+  this.paint = function(event)
   {
     if(paint)
     {
@@ -59,7 +59,7 @@ function Canvas()
 		
   }
 	
-  this.startPaint(event)
+  this.startPaint = function(event)
   {
     this.mouseX = event.pageX - this.offsetLeft;
     this.mouseY = event.pageY - this.offsetTop;

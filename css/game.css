@@ -18,3 +18,25 @@ body
 	height: 100%;
 	width: 100%;
 }
+
+#board
+{
+  position: relative;
+}
+
+#boardCanvas
+{
+  z-index: 0;
+  position: absolute;
+}
+
+#playerView
+{
+  position: absolute;
+}
+
+.characterPiece
+{
+  position: absolute;
+  z-index: 1;
+}

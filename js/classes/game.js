@@ -10,11 +10,25 @@ function Game(arr)
     this.players[i] = new Player(arr[i].playerName, arr[i].charName);
   }
   
-  this.boardBkgCanvas = $('#boardCanvas');
-  this.boardBkgCtx = this.boardBkgCanvas.getContext('2d');
-  this.boardBkgImg = new Image();
-  this.boardBkgWidth = 0;
-  this.boardBkgHeight = 0;
+  this.board = {
+    canvas: null,
+	ctx: null,
+	img: null,
+	setValues: function(div, imgsrc)
+	{
+	  canvas = document.getElementById(div);
+	  ctx = canvas.getContext('2d');
+	  
+	  img = new Image();
+	  img.src = imgsrc;
+	  img.onload = function()
+	  {
+		canvas.width = img.width;
+		canvas.height = img.height;
+	    ctx.drawImage(img,0,0, img.width, img.height);
+	  }
+	}
+  };
   
   // FUNCTION DEFININTIONS
  this.checkCrime = function(suspect, weapon, room)
@@ -38,18 +52,16 @@ function Game(arr)
   // SET FUNCTIONS
   this.setGame = function()
   {
+	
     this.deck.dealCards(this.players);
 	// set up game board:
 	// --- board background
-	this.boardBkgWidth = this.boardBkgCanvas.width = boardBkgCanvas.width();
-	this.boardBkgHeight = this.boardBkgCanvas.height = boardBkgCanvas.height();
-	
-	this.boardBkgImg.src = '../imgs/foundation.png';
-	this.boardBkgImg.onload = function()
-	{
-	  this.boardBkgCtx.drawImage(this.boardBkgImg, 0, 0, this.boardBkgWdith, this.boardBkgHeight);
-	};
+	this.board.setValues('boardCanvas', '../imgs/foundation.png');
 	// --- each player's canvas layer
+	for(var i=0; i<this.players.length; i++)
+	{
+	  this.players[i].piece.setValues(650, 675, i);
+	}
   }
   
   // GET FUNCTIONS
