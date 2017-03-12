@@ -8,50 +8,60 @@ function Player(name, character)
   this.name = name;
   
   this.piece = {
-    canvas: null,
-	ctx: null,
+    this.canvas: null,
+	this.ctx: null,
+	this.color: null,
+	this.setColor: function(c)
+	{
+	  color = c;
+	},
 	setValues: function(w,h,i)
 	{
-	  canvas = document.createElement("canvas");
-	  canvas.id = 'canvas'+name;
+	  div = "player" + (i+1);
+	  this.canvas = document.getElementById(div);
+	  this.canvas.style.display = "block";
 	  canvas.width = w;
 	  canvas.height = h;
-	  canvas.className = "characterPiece"
 	  ctx = canvas.getContext('2d');
-	  
-	  $('#board').append(canvas);
+	  ctx.strokeStyle = ctx.fillStyle = color;
+	},
+	draw: function(position, sqrSz, r)
+	{
+	  ctx.beginPath();
+      ctx.arc((position.x * sqrSz)-r, (position.y * sqrSz)-r, 0, 2*Math.PI, true);
+	  ctx.fill();
 	}
   };
   
   switch(character)
   {
     case 'ariel':
-      this.color = Global.RED;
+      this.piece.setColor('#920031');
       this.position.updatePoint(18,2);
     break;
 			
     case 'belle':
-      this.color = Global.YELLOW;
+      this.piece.setColor('#D2F700');
       this.position.updatePoint(25,9);
     break;
 			
     case 'pocahontas':
-      this.color = Global.WHITE;
+      this.piece.setColor('#ffffff');
       this.position.updatePoint(16,26);
     break;
 			
     case 'tiana':
-      this.color = Global.GREEN;
+      this.piece.setColor('#499500');
       this.position.updatePoint(11,26);
     break;
 			
     case 'jasmine':
-      this.color = Global.BLUE;
+      this.piece.setColor('#300571');
       this.position.updatePoint(2,20);
     break;
 			
     case 'aurora':
-      this.color = Global.PURPLE;
+      this.piece.setColor('#65016C');
       this.position.updatePoint(2,7);
     break;
   };
@@ -103,7 +113,7 @@ function Player(name, character)
     for( var i=0; i<this.hand.length; i++)
     {
 	  // build image tag
-  if($.inArray(this.hand[i], deck.suspects) >= 0 || this.hand[i]==deck.crime[0])
+      if($.inArray(this.hand[i], deck.suspects) >= 0 || this.hand[i]==deck.crime[0])
 	  {
 	    folder = "suspects";
 	  }
@@ -119,12 +129,6 @@ function Player(name, character)
       // print the card out
       $('#cards').append(img);
     }
-  }
-	
-  this.drawPiece = function()
-  {
-    ctx.beginPath();
-    ctx.arc( (this.position.x * Global.sqrSize) - Global.radius, (this.position.y * Global.sqrSize) - Global.radius, 0, 2*Math.PI, true);
   }
   
   this.getHandArr = function()

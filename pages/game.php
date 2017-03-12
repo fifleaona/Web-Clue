@@ -15,6 +15,12 @@
   <div id="known">
     <!-- Canvas element -->
     <canvas id="knownCanvas"></canvas>
+	<canvas id="player1" class="characterPiece"></canvas>
+	<canvas id="player2" class="characterPiece"></canvas>
+	<canvas id="player3" class="characterPiece"></canvas>
+	<canvas id="player4" class="characterPiece"></canvas>
+	<canvas id="player5" class="characterPiece"></canvas>
+	<canvas id="player6" class="characterPiece"></canvas>
   </div>
 	
   <div id="board">

@@ -1,71 +1,71 @@
 function Canvas()
 {
   // point variables
-  this.clickX =[];
-  this.clickY = [];
-  this.clickDrag = [];
-  this.mouseX = 0;
-  this.mouseY = 0;
-  this.paint = false;
-  this.paintColor = '#df4b26';
-  this.brushWidth = 3;
+  clickX =[];
+  clickY = [];
+  clickDrag = [];
+  mouseX = 0;
+  mouseY = 0;
+  paint = false;
+  paintColor = '#df4b26';
+  brushWidth = 3;
 
   // canvas variables
-  this.canvas = document.getElementById(id);
-  this.ctx = this.canvas.getContext("2d");
-  this.img = new Image();
-  this.width = 0;
-  this.height = 0;
+  canvas = document.getElementById(id);
+  ctx = canvas.getContext("2d");
+  img = new Image();
+  width = 0;
+  height = 0;
 	
   // function declarations
-  //this.initialize = function(img_src, div){};
-  this.togglePaint = function(){};
+  //initialize = function(img_src, div){};
+  togglePaint = function(){};
 	
   // function definitions
-  this.initialize = function(img_src, div)
+  initialize = function(img_src, div)
   {
-    this.width = $(div).width();
-    this.height = $(div).width();
+    width = $(div).width();
+    height = $(div).width();
 		
-    this.canvas.width = this.width;
-    this.canvas.height = this.height;
+    canvas.width = width;
+    canvas.height = height;
 		
-    this.img.src = img_src;
-    this.img.onload = function()
+    img.src = img_src;
+    img.onload = function()
     {
-      this.ctx.drawImage(this.img, 0, 0, this.width, this.height);
+      ctx.drawImage(img, 0, 0, width, height);
     }
   }
 	
-  this.togglePaint(event)
+  togglePaint(event)
   {
-    if(this.paint == true)
+    if(paint == true)
     {
-      this.paint = false;
+      paint = false;
     }
     else
     {
-      this.paint = true;
+      paint = true;
     }
   }
 	
-  this.paint = function(event)
+  paint = function(event)
   {
     if(paint)
     {
       // find out about add click
-      redraw(this.ctx, this.width, this.height, this.paintColor, this.brushWidth, this.clickX, this.clickY, this.clickDrag);
+      redraw(ctx, width, height, paintColor, brushWidth, clickX, clickY, clickDrag);
     }
 		
   }
 	
-  this.startPaint = function(event)
+  startPaint = function(event)
   {
-    this.mouseX = event.pageX - this.offsetLeft;
-    this.mouseY = event.pageY - this.offsetTop;
+    mouseX = event.pageX - offsetLeft;
+    mouseY = event.pageY - offsetTop;
 		
     paint = true;
 		
-    this.paint(event);
+    paint(event);
   }
 }

@@ -14,6 +14,8 @@ function Game(arr)
     canvas: null,
 	ctx: null,
 	img: null,
+	squareSize: 25,
+	radius: 25/2,
 	setValues: function(div, imgsrc)
 	{
 	  canvas = document.getElementById(div);
@@ -21,12 +23,21 @@ function Game(arr)
 	  
 	  img = new Image();
 	  img.src = imgsrc;
+	  canvas.width = img.width;
+	  canvas.height = img.height;
 	  img.onload = function()
 	  {
-		canvas.width = img.width;
-		canvas.height = img.height;
 	    ctx.drawImage(img,0,0, img.width, img.height);
 	  }
+	},
+	updateTileSize: function(newSqSz)
+	{
+	  radius = newSqSz / 2;
+	  squareSize = newSqSz;
+	},
+	toggleBoard: function()
+	{
+	  canvas.style.display = "none";
 	}
   };
   
@@ -61,7 +72,10 @@ function Game(arr)
 	for(var i=0; i<this.players.length; i++)
 	{
 	  this.players[i].piece.setValues(650, 675, i);
+	  this.players[i].piece.draw(this.players[i].position,this.board.squareSize, this.board.radius);
 	}
+	
+	this.board.toggleBoard();
   }
   
   // GET FUNCTIONS
