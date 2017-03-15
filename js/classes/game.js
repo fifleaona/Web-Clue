@@ -2,7 +2,7 @@ function Game(arr)
 {
   // INITIALIZATION
   this.deck = new Cards();
-  this.deck.buildDeck();
+  //this.deck.buildDeck();
   
   this.players = [];
   for(var i=0; i<arr.length; i++)
@@ -10,36 +10,7 @@ function Game(arr)
     this.players[i] = new Player(arr[i].playerName, arr[i].charName);
   }
   
-  this.board = {
-    canvas: null,
-	ctx: null,
-	img: null,
-	squareSize: 25,
-	radius: 25/2,
-	setValues: function(div, imgsrc)
-	{
-	  canvas = document.getElementById(div);
-	  ctx = canvas.getContext('2d');
-	  
-	  img = new Image();
-	  img.src = imgsrc;
-	  canvas.width = img.width;
-	  canvas.height = img.height;
-	  img.onload = function()
-	  {
-	    ctx.drawImage(img,0,0, img.width, img.height);
-	  }
-	},
-	updateTileSize: function(newSqSz)
-	{
-	  radius = newSqSz / 2;
-	  squareSize = newSqSz;
-	},
-	toggleBoard: function()
-	{
-	  canvas.style.display = "none";
-	}
-  };
+  this.board = new Canvas('boardCanvas');
   
   // FUNCTION DEFININTIONS
  this.checkCrime = function(suspect, weapon, room)
@@ -64,18 +35,16 @@ function Game(arr)
   this.setGame = function()
   {
 	
-    this.deck.dealCards(this.players);
+    //this.deck.dealCards(this.players);
 	// set up game board:
 	// --- board background
-	this.board.setValues('boardCanvas', '../imgs/foundation.png');
+	this.board.setValues('../imgs/foundation.png','#000000');
 	// --- each player's canvas layer
 	for(var i=0; i<this.players.length; i++)
 	{
-	  this.players[i].piece.setValues(650, 675, i);
-	  this.players[i].piece.draw(this.players[i].position,this.board.squareSize, this.board.radius);
+	  this.players[i].assignDiv(i, 650, 675);
+	  this.players[i].piece.drawPiece(this.players[i].position);
 	}
-	
-	this.board.toggleBoard();
   }
   
   // GET FUNCTIONS

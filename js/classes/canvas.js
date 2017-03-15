@@ -1,71 +1,54 @@
-function Canvas()
+function Canvas(id)
 {
-  // point variables
-  clickX =[];
-  clickY = [];
-  clickDrag = [];
-  mouseX = 0;
-  mouseY = 0;
-  paint = false;
-  paintColor = '#df4b26';
-  brushWidth = 3;
-
-  // canvas variables
-  canvas = document.getElementById(id);
-  ctx = canvas.getContext("2d");
-  img = new Image();
-  width = 0;
-  height = 0;
-	
-  // function declarations
-  //initialize = function(img_src, div){};
-  togglePaint = function(){};
-	
-  // function definitions
-  initialize = function(img_src, div)
+  this.canvas = document.getElementById(id);
+  this.ctx = this.canvas.getContext("2d");
+  this.img = null;
+  
+  this.squareSize = 25;
+  this.radius = 25/2;
+  
+  this.setValues = function(imgsrc, color)
   {
-    width = $(div).width();
-    height = $(div).width();
-		
-    canvas.width = width;
-    canvas.height = height;
-		
-    img.src = img_src;
-    img.onload = function()
-    {
-      ctx.drawImage(img, 0, 0, width, height);
-    }
+	if(imgsrc != 'none')
+	{
+	  var scope = this;
+	  this.img = new Image();
+      this.img.src = imgsrc;
+	  this.canvas.width = this.img.width;
+	  this.canvas.height = this.img.height;
+	  
+	  this.img.onload = function()
+	  {
+		scope.canvas.width = scope.img.width;
+		scope.canvas.height = scope.img.height;
+	    scope.ctx.drawImage(scope.img, 0, 0, scope.img.width, scope.img.height);
+	  }
+	}
+	this.ctx.strokeStyle = this.ctx.fillStyle = color;
   }
-	
-  togglePaint(event)
+  
+  this.drawPiece = function(pos)
   {
-    if(paint == true)
-    {
-      paint = false;
-    }
-    else
-    {
-      paint = true;
-    }
+    this.ctx.beginPath();
+	this.ctx.arc((pos.x*this.squareSize)-this.radius, (pos.y*this.squareSize)-this.radius, this.radius, 0, 2*Math.PI, true);
+	//this.ctx.arc(pos.x,pos.y,50,0,2*Math.PI);
+	this.ctx.fill();
+	this.ctx.closePath();
+	
+    //this.ctx.beginPath();
+    //this.ctx.rect(pos.x*this.squareSize, pos.y, 50, 50);
+    //this.ctx.fill();
+    //this.ctx.closePath();
+	
+	//this.ctx.beginPath();
+    //this.ctx.arc(100,75,50,0,2*Math.PI);
+    //this.ctx.stroke(); 
+	
   }
-	
-  paint = function(event)
+  
+  this.updateTileSize = function(newSqSz)
   {
-    if(paint)
-    {
-      // find out about add click
-      redraw(ctx, width, height, paintColor, brushWidth, clickX, clickY, clickDrag);
-    }
-		
-  }
-	
-  startPaint = function(event)
-  {
-    mouseX = event.pageX - offsetLeft;
-    mouseY = event.pageY - offsetTop;
-		
-    paint = true;
-		
-    paint(event);
+    this.radius = newSqSz/2;
+	this.squareSize = newSqSz;
   }
 }

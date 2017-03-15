@@ -1,36 +1,36 @@
 Array.prototype.randomElement = function ()
 {
- return this[Math.floor(Math.random() * this.length)];
+ return this[Math.floor(Math.random() * length)];
 }
 
 function Global()
 {
 	// INITIALIZE VARIABLES
 	// player info
-	this.numPlayers = 0;
-	this.playerArr = [];
+	numPlayers = 0;
+	playerArr = [];
 	
 	// set colour constant values
-	this.BLACK = '#000000';
-	this.BLUE = '#300571';
-	this.GREEN = '#499500';
-	this.PURPLE = '#65016C';
-	this.RED = '#920031';
-	this.WHITE = '#ffffff';
-	this.YELLOW = '#D2F700';
+	BLACK = '#000000';
+	BLUE = '#300571';
+	GREEN = '#499500';
+	PURPLE = '#65016C';
+	RED = '#920031';
+	WHITE = '#ffffff';
+	YELLOW = '#D2F700';
 	
 	// square sizes
-	this.sqrSize = 25;
-	this.radius = this.sqrSize / 2;
+	sqrSize = 25;
+	radius = sqrSize / 2;
 	
 	// FUNCTION DECLARATIONS
-	//this.addPlayer = function(cName){};
+	//addPlayer = function(cName){};
 	
 	// FUNCTION DEFINITIONS
-	//this.addPlayer(cName)
+	//addPlayer(cName)
 	//{
 	//	var newPlayer = new Player();
 	//	newPlayer.setCharacter(cName);
-	//	this.playerArr.push(newPlayer);
+	//	playerArr.push(newPlayer);
 	//}
 }

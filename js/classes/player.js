@@ -6,62 +6,39 @@ function Player(name, character)
   this.character = character; 
   this.position = new Point();
   this.name = name;
+  this.color = '';
   
-  this.piece = {
-    this.canvas: null,
-	this.ctx: null,
-	this.color: null,
-	this.setColor: function(c)
-	{
-	  color = c;
-	},
-	setValues: function(w,h,i)
-	{
-	  div = "player" + (i+1);
-	  this.canvas = document.getElementById(div);
-	  this.canvas.style.display = "block";
-	  canvas.width = w;
-	  canvas.height = h;
-	  ctx = canvas.getContext('2d');
-	  ctx.strokeStyle = ctx.fillStyle = color;
-	},
-	draw: function(position, sqrSz, r)
-	{
-	  ctx.beginPath();
-      ctx.arc((position.x * sqrSz)-r, (position.y * sqrSz)-r, 0, 2*Math.PI, true);
-	  ctx.fill();
-	}
-  };
+  this.piece = null;
   
   switch(character)
   {
     case 'ariel':
-      this.piece.setColor('#920031');
+      this.color ='#920031';
       this.position.updatePoint(18,2);
     break;
 			
     case 'belle':
-      this.piece.setColor('#D2F700');
+      this.color = '#D2F700';
       this.position.updatePoint(25,9);
     break;
 			
     case 'pocahontas':
-      this.piece.setColor('#ffffff');
+      this.color = '#ffffff'; 
       this.position.updatePoint(16,26);
     break;
 			
     case 'tiana':
-      this.piece.setColor('#499500');
+      this.color = '#499500';
       this.position.updatePoint(11,26);
     break;
 			
     case 'jasmine':
-      this.piece.setColor('#300571');
+      this.color = '#300571';
       this.position.updatePoint(2,20);
     break;
 			
     case 'aurora':
-      this.piece.setColor('#65016C');
+      this.color = '#65016C';
       this.position.updatePoint(2,7);
     break;
   };
@@ -134,5 +111,16 @@ function Player(name, character)
   this.getHandArr = function()
   {
 	return this.hand;
+  }
+  
+  this.assignDiv = function(i, w, h)
+  {
+    var div = 'player' + (i+1);
+	document.getElementById(div).style.display = "block";
+	this.piece = new Canvas(div);
+	console.log(w);
+	this.piece.canvas.width = w;
+	this.piece.canvas.height = h;
+	this.piece.setValues('none', this.color);
   }
 }
