@@ -10,6 +10,8 @@ function Player(name, character)
   
   this.piece = null;
   
+  this.die = [1,2,3,4,5,6];
+  
   switch(character)
   {
     case 'ariel':
@@ -59,7 +61,7 @@ function Player(name, character)
     {
       this.accused = true;
     }
-  }
+  };
 	
   this.toggleSecretPassage = function()
   {
@@ -75,12 +77,12 @@ function Player(name, character)
 	  this.secretPassage = true;
 	  // check for secret passage in the Game object
 	}
-  }
+  };
   
   this.addCard = function(card)
   {
     this.hand.push(card);
-  }
+  };
 	
   // DRAWING FUNCTIONS
   this.showHand = function(deck)
@@ -106,21 +108,39 @@ function Player(name, character)
       // print the card out
       $('#cards').append(img);
     }
-  }
+  };
   
   this.getHandArr = function()
   {
 	return this.hand;
-  }
+  };
   
   this.assignDiv = function(i, w, h)
   {
     var div = 'player' + (i+1);
 	document.getElementById(div).style.display = "block";
 	this.piece = new Canvas(div);
-	console.log(w);
 	this.piece.canvas.width = w;
 	this.piece.canvas.height = h;
 	this.piece.setValues('none', this.color);
-  }
+  };
+  
+  this.rollDie = function()
+  {
+    console.log(this.die.randomElement());
+	
+	
+	this.highlightSquare(new Point(this.position.x-1, this.position.y));
+  };
+  
+  this.highlightSquare = function(pt)
+  {
+	rtTopCnr = new Point(pt.x-1,pt.y);
+	rtBtmCnr = new Point(pt.x-1,pt.y-1);
+	lftBtmCnr = new Point(pt.x, pt.y-1);
+	this.piece.drawLine(pt,rtTopCnr);
+	this.piece.drawLine(rtTopCnr,rtBtmCnr);
+	this.piece.drawLine(rtBtmCnr,lftBtmCnr);
+	this.piece.drawLine(lftBtmCnr,pt);
+  };
 }

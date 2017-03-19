@@ -11,6 +11,76 @@ function Game(arr)
   }
   
   this.board = new Canvas('boardCanvas');
+  this.draw = new Canvas('drawCanvas');
+  this.rooms = [];
+  
+  this.walls = this.perimeter = [
+	new Point(1,1),
+	new Point(8,1),
+	new Point(8,2),
+	new Point(9,2),
+	new Point(9,1),
+	new Point(16,1),
+	new Point(16,2),
+	new Point(17,2),
+	new Point(17,1),
+	new Point(18,1),
+	new Point(18,2),
+	new Point(19,2),
+	new Point(19,1),
+	new Point(25,1),
+	new Point(25,7),
+	new Point(24,7),
+	new Point(24,8),
+	new Point(25,8),
+	new Point(25,9),
+	new Point(24,9),
+	new Point(24,10),
+	new Point(25,10),
+	new Point(25,17),
+	new Point(24,17),
+	new Point(24,18),
+	new Point(25,18),
+	new Point(25,19),
+	new Point(24,19),
+	new Point(24,20),
+	new Point(25,20),
+	new Point(25,25),
+	new Point(19,25),
+	new Point(19,24),
+	new Point(18,24),
+	new Point(18,25),
+	new Point(16,25),
+	new Point(16,26),
+	new Point(10,26),
+	new Point(10,25),
+	new Point(8,25),
+	new Point(8,24),
+	new Point(7,24),
+	new Point(7,25),
+	new Point(1,25),
+	new Point(1,21),
+	new Point(2,21),
+	new Point(2,20),
+	new Point(1,20),
+	new Point(1,19),
+	new Point(2,19),
+	new Point(2,18),
+	new Point(1,18),
+	new Point(1,13),
+	new Point(2,13),
+	new Point(2,12),
+	new Point(1,12),
+	new Point(1,8),
+	new Point(2,8),
+	new Point(2,7),
+	new Point(1,7),
+	new Point(1,6),
+	new Point(2,6),
+	new Point(2,5),
+	new Point(1,5)
+  ]
+  
   
   // FUNCTION DEFININTIONS
  this.checkCrime = function(suspect, weapon, room)
@@ -34,17 +104,37 @@ function Game(arr)
   // SET FUNCTIONS
   this.setGame = function()
   {
+	this.rooms.push(new Room());
+	this.rooms[0].setBallroom();
+	this.rooms.push(new Room());
+	this.rooms[1].setCave();
+	this.rooms.push(new Room());
+	this.rooms[2].setCottage();
+	this.rooms.push(new Room());
+	this.rooms[3].setForest();
+	this.rooms.push(new Room());
+	this.rooms[4].setGarden();
+	this.rooms.push(new Room());
+	this.rooms[5].setGrotto();
+	this.rooms.push(new Room());
+	this.rooms[6].setKitchen();
+	this.rooms.push(new Room());
+	this.rooms[7].setTent();
+	this.rooms.push(new Room());
+	this.rooms[8].setTower();
 	
     //this.deck.dealCards(this.players);
 	// set up game board:
 	// --- board background
-	this.board.setValues('../imgs/foundation.png','#000000');
+	this.board.setValues('../imgs/foundation.png','#FF2323');
 	// --- each player's canvas layer
 	for(var i=0; i<this.players.length; i++)
 	{
 	  this.players[i].assignDiv(i, 650, 675);
 	  this.players[i].piece.drawPiece(this.players[i].position);
 	}
+	
+	this.players[0].rollDie();
   }
   
   // GET FUNCTIONS

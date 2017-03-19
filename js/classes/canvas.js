@@ -31,19 +31,16 @@ function Canvas(id)
   {
     this.ctx.beginPath();
 	this.ctx.arc((pos.x*this.squareSize)-this.radius, (pos.y*this.squareSize)-this.radius, this.radius, 0, 2*Math.PI, true);
-	//this.ctx.arc(pos.x,pos.y,50,0,2*Math.PI);
-	this.ctx.fill();
-	this.ctx.closePath();
-	
-    //this.ctx.beginPath();
-    //this.ctx.rect(pos.x*this.squareSize, pos.y, 50, 50);
-    //this.ctx.fill();
-    //this.ctx.closePath();
-	
-	//this.ctx.beginPath();
-    //this.ctx.arc(100,75,50,0,2*Math.PI);
-    //this.ctx.stroke(); 
-	
+	this.ctx.fill();	
+  }
+  
+  this.drawLine = function(startPoint, endPoint)
+  {
+    this.ctx.beginPath();
+	this.ctx.moveTo(startPoint.x*this.squareSize, startPoint.y*this.squareSize);
+	this.ctx.lineWidth = 2;
+	this.ctx.lineTo(endPoint.x*this.squareSize, endPoint.y*this.squareSize);
+	this.ctx.stroke();
   }
   
   this.updateTileSize = function(newSqSz)

@@ -20,6 +20,7 @@
   <div id="board">
     <!-- Canvas element -->
     <canvas id="boardCanvas"></canvas>
+	<canvas id="drawCanvas" class="characterPiece"></canvas>
 	<canvas id="player1" class="characterPiece"></canvas>
 	<canvas id="player2" class="characterPiece"></canvas>
 	<canvas id="player3" class="characterPiece"></canvas>
