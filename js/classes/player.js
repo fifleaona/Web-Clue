@@ -127,7 +127,7 @@ function Player(name, character)
   
   this.rollDie = function()
   {
-    console.log(this.die.randomElement());
+    //console.log(this.die.randomElement());
 	
 	
 	this.highlightSquare(new Point(this.position.x-1, this.position.y));
