@@ -30,7 +30,7 @@ function Canvas(id)
   this.drawPiece = function(pos)
   {
     this.ctx.beginPath();
-	this.ctx.arc((pos.x*this.squareSize)-this.radius, (pos.y*this.squareSize)-this.radius, this.radius, 0, 2*Math.PI, true);
+	this.ctx.arc((pos.x*this.squareSize)+this.radius, (pos.y*this.squareSize)+this.radius, this.radius, 0, 2*Math.PI, true);
 	this.ctx.fill();	
   }
   
@@ -40,6 +40,21 @@ function Canvas(id)
 	this.ctx.moveTo(startPoint.x*this.squareSize, startPoint.y*this.squareSize);
 	this.ctx.lineWidth = 2;
 	this.ctx.lineTo(endPoint.x*this.squareSize, endPoint.y*this.squareSize);
+	this.ctx.stroke();
+  }
+  
+  this.drawSquare = function(startPoint)
+  {
+    rtTopCnr = new Point(startPoint.x+1, startPoint.y);
+    rtBtmCnr = new Point(startPoint.x+1, startPoint.y+1);
+    lftBtmCnr = new Point(startPoint.x, startPoint.y+1);
+	this.ctx.beginPath();
+	this.ctx.moveTo(startPoint.x*this.squareSize, startPoint.y*this.squareSize);
+	this.ctx.lineWidth = 2;
+	this.ctx.lineTo(rtTopCnr.x*this.squareSize, rtTopCnr.y*this.squareSize);
+	this.ctx.lineTo(rtBtmCnr.x*this.squareSize, rtBtmCnr.y*this.squareSize);
+	this.ctx.lineTo(lftBtmCnr.x*this.squareSize, lftBtmCnr.y*this.squareSize);
+	this.ctx.lineTo(startPoint.x*this.squareSize, startPoint.y*this.squareSize);
 	this.ctx.stroke();
   }
   

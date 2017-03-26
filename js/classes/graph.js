@@ -7,16 +7,6 @@ function Node(pos)
   {
     this.edge_list.push(endPoint);
   }
-  
-  this.getX = function()
-  {
-    return this.position.x;
-  }
-  
-  this.getY = function()
-  {
-    return this.position.y;
-  }
 }
 
 function Graph()
@@ -25,60 +15,58 @@ function Graph()
   
   this.addEdge = function(startPoint, endPoint)
   {
-    firstPos = this.hasNode(startPoint);
-    secondPos = this.hasNode(endPoint);
-	
-	if(firstPos!=null)
+	if(this.node_list.length==0)
 	{
-	  this.node_list[firstPos].addEdge(endPoint);
+	  const node1 = new Node(startPoint);
+	  const node2 = new Node(endPoint);
+	  node1.addEdge(endPoint);
+	  node2.addEdge(startPoint);
+	  
+	  this.node_list.push(node1);
+	  this.node_list.push(node2);
 	}
-	
-	if(secondPos!=null)
+	else
 	{
-	  this.node_list[secondPos].addEdge(startPoint);
-	}
-	
-    if( !firstPos || !secondPos )
-    {
-      if(!firstPos)
+      firstPos = this.findNode(startPoint);	  
+      secondPos = this.findNode(endPoint);
+	  
+	  if(firstPos==null)
 	  {
-	    const node = new Node(startPoint);
-	    node.addEdge(endPoint);
-	    this.node_list.push(node);
+		const node = new Node(startPoint);
+		node.addEdge(endPoint);
+		this.node_list.push(node);
 	  }
-	  if(!secondPos)
+	  else
 	  {
-	    const node = new Node(endPoint);
-	    node.addEdge(startPoint);
-	    this.node_list.push(node);
+		this.node_list[firstPos].addEdge(endPoint);
+	  }
+	  
+	  if(secondPos==null)
+	  {
+		const otherNode = new Node(endPoint);
+		otherNode.addEdge(startPoint);
+		this.node_list.push(otherNode);
+	  }
+	  else
+	  {
+		this.node_list[secondPos].addEdge(startPoint);
 	  }
     }
   }
   
-  this.hasNode = function(point)
+  this.findNode = function(point)
   {
-    if(this.node_list.length == 0)
+    for(var i=0; i<this.node_list.length; i++)
 	{
-	  return null;
-	}
-	else
-	{
-	  for(var i=0; i<this.node_list.length; i++)
+	  if(typeof point=="string" && point == this.node_list.position)
 	  {
-		console.log(point.x + " ?? " + this.node_list[i].getX());
-	    if(typeof point=="string" && point == this.node_list.position)
-		{
-		  return i;
-		}
-		else if(point.x == this.node_list[i].getX() && point.y == this.node_list[i].getY())
-		{
-		  return i;
-		}
-		else
-		{
-		  return null;
-		}
+	    return i;
+	  }
+	  else if(point.x == this.node_list[i].position.x && point.y == this.node_list[i].position.y)
+	  {
+	    return i;
 	  }
 	}
+	return null;
   }
 }

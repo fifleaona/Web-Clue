@@ -16,32 +16,32 @@ function Player(name, character)
   {
     case 'ariel':
       this.color ='#920031';
-      this.position.updatePoint(18,2);
+      this.position.updatePoint(17,1);
     break;
 			
     case 'belle':
       this.color = '#D2F700';
-      this.position.updatePoint(25,9);
+      this.position.updatePoint(24,8);
     break;
 			
     case 'pocahontas':
       this.color = '#ffffff'; 
-      this.position.updatePoint(16,26);
+      this.position.updatePoint(15,25);
     break;
 			
     case 'tiana':
       this.color = '#499500';
-      this.position.updatePoint(11,26);
+      this.position.updatePoint(10,25);
     break;
 			
     case 'jasmine':
       this.color = '#300571';
-      this.position.updatePoint(2,20);
+      this.position.updatePoint(1,19);
     break;
 			
     case 'aurora':
       this.color = '#65016C';
-      this.position.updatePoint(2,7);
+      this.position.updatePoint(1,6);
     break;
   };
   
@@ -128,19 +128,5 @@ function Player(name, character)
   this.rollDie = function()
   {
     //console.log(this.die.randomElement());
-	
-	
-	this.highlightSquare(new Point(this.position.x-1, this.position.y));
-  };
-  
-  this.highlightSquare = function(pt)
-  {
-	rtTopCnr = new Point(pt.x-1,pt.y);
-	rtBtmCnr = new Point(pt.x-1,pt.y-1);
-	lftBtmCnr = new Point(pt.x, pt.y-1);
-	this.piece.drawLine(pt,rtTopCnr);
-	this.piece.drawLine(rtTopCnr,rtBtmCnr);
-	this.piece.drawLine(rtBtmCnr,lftBtmCnr);
-	this.piece.drawLine(lftBtmCnr,pt);
   };
 }
