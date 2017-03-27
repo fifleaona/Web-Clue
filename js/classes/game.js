@@ -202,8 +202,10 @@ function Game(arr)
 	
 	this.spaces.addEdge(new Point(6,18), new Point(7,18));
 	this.spaces.addEdge(new Point(6,18), new Point(6,19));
-	this.spaces.addEdge(new Point(6,19), new Point(6,19));
+	this.spaces.addEdge(new Point(6,19), new Point(7,19));
 	this.spaces.addEdge(new Point(6,19), "Cave");
+	
+	
   }
   
   this.setGame = function()
