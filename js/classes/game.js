@@ -374,27 +374,100 @@ function Game(arr)
 	this.spaces.addEdge(new Point(16,24), new Point(17,24));
 	
 	// x = 17
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
-	this.spaces.addEdge(new Point(
+	this.spaces.addEdge(new Point(17,1), new Point(17,2));
+	this.spaces.addEdge(new Point(17,2), new Point(17,3));
+	this.spaces.addEdge(new Point(17,3), new Point(17,4));
+	this.spaces.addEdge(new Point(17,4), new Point(17,5));
+	this.spaces.addEdge(new Point(17,5), new Point(17,6));
+	this.spaces.addEdge(new Point(17,6), new Point(17,7));
+	this.spaces.addEdge(new Point(17,7), new Point(18,7));
+	this.spaces.addEdge(new Point(17,7), new Point(17,8));
+	this.spaces.addEdge(new Point(17,8), new Point(18,8));
+	this.spaces.addEdge(new Point(17,8), new Point(17,9));
+	this.spaces.addEdge(new Point(17,9), new Point(18,9));
+	this.spaces.addEdge(new Point(17,15), new Point(18,15));
+	this.spaces.addEdge(new Point(17,15), new Point(17,16));
+	this.spaces.addEdge(new Point(17,16), new Point(18,16));
+	this.spaces.addEdge(new Point(17,16), new Point(17,17));
+	this.spaces.addEdge(new Point(17,17), new Point(18,17));
+	this.spaces.addEdge(new Point(17,17), new Point(17,18));
+	this.spaces.addEdge(new Point(17,18), new Point(18,18));
+	this.spaces.addEdge(new Point(17,18), new Point(17,19))
+	this.spaces.addEdge(new Point(17,19), "Forest");
+	this.spaces.addEdge(new Point(17,19), new Point(18,19));
+	this.spaces.addEdge(new Point(17,19), new Point(17,20));
+	this.spaces.addEdge(new Point(17,20), new Point(18,20));
+	this.spaces.addEdge(new Point(17,20), new Point(17,21));
+	this.spaces.addEdge(new Point(17,21), new Point(18,21));
+	this.spaces.addEdge(new Point(17,21), new Point(17,22));
+	this.spaces.addEdge(new Point(17,22), new Point(18,22));
+	this.spaces.addEdge(new Point(17,22), new Point(17,23));
+	
+	// x = 18
+	this.spaces.addEdge(new Point(18,7), "Tower");
+	this.spaces.addEdge(new Point(18,7), new Point(19,7));
+	this.spaces.addEdge(new Point(18,7), new Point(18,8));
+	this.spaces.addEdge(new Point(18,8), new Point(19,8));
+	this.spaces.addEdge(new Point(18,8), new Point(18,9))
+	this.spaces.addEdge(new Point(18,8), "Ballroom");
+	this.spaces.addEdge(new Point(18,8), new Point(19,8));
+	this.spaces.addEdge(new Point(18,15), new Point(19,15));
+	this.spaces.addEdge(new Point(18,15), new Point(18,16));
+	this.spaces.addEdge(new Point(18,16), new Point(19,16));
+	this.spaces.addEdge(new Point(18,16), new Point(18,17));
+	this.spaces.addEdge(new Point(18,17), new Point(18,18));
+	this.spaces.addEdge(new Point(18,18), new Point(18,19));
+	this.spaces.addEdge(new Point(18,19), new Point(18,20));
+	this.spaces.addEdge(new Point(18,20), new Point(18,21));
+	
+	// x = 19
+	this.spaces.addEdge(new Point(19,7), new Point(20,7));
+	this.spaces.addEdge(new Point(19,7), new Point(19,8));
+	this.spaces.addEdge(new Point(19,8), new Point(20,8));
+	this.spaces.addEdge(new Point(19,8), new Point(19,9));
+	this.spaces.addEdge(new Point(19,9), new Point(20,9));
+	this.spaces.addEdge(new Point(19,15), new Point(19,16));
+	this.spaces.addEdge(new Point(19,16), new Point(20,16));
+	this.spaces.addEdge(new Point(19,16), new Point(19,17));
+	this.spaces.addEdge(new Point(19,17), new Point(20,17));
+	
+	// x = 20
+	this.spaces.addEdge(new Point(20,7), new Point(21,7));
+	this.spaces.addEdge(new Point(20,7), new Point(20,8));
+	this.spaces.addEdge(new Point(20,8), new Point(21,8));
+	this.spaces.addEdge(new Point(20,8), new Point(20,9));
+	this.spaces.addEdge(new Point(20,9), new Point(21,9));
+	this.spaces.addEdge(new Point(20,16), new Point(21,16));
+	this.spaces.addEdge(new Point(20,16), new Point(20,17));
+	this.spaces.addEdge(new Point(20,17), "Ballroom");
+	this.spaces.addEdge(new Point(20,17), new Point(21,17));
+	
+	// x = 21
+	this.spaces.addEdge(new Point(21,7), new Point(22,7));
+	this.spaces.addEdge(new Point(21,7), new Point(21,8));
+	this.spaces.addEdge(new Point(21,8), new Point(22,8));
+	this.spaces.addEdge(new Point(21,8), new Point(21,9));
+	this.spaces.addEdge(new Point(21,9), new Point(22,9));
+	this.spaces.addEdge(new Point(21,16), new Point(22,16));
+	this.spaces.addEdge(new Point(21,16, new Point(21,17));
+	this.spaces.addEdge(new Point(21,17), new Point(22,17));
+	
+	// x = 22
+	this.spaces.addEdge(new Point(22,7), new Point(23,7));
+	this.spaces.addEdge(new Point(22,7), new Point(22,8));
+	this.spaces.addEdge(new Point(22,8), new Point(23,8));
+	this.spaces.addEdge(new Point(22,8), new Point(22,9));
+	this.spaces.addEdge(new Point(22,9), new Point(23,9));
+	this.spaces.addEdge(new Point(22,16), new Point(23,16));
+	this.spaces.addEdge(new Point(22,16), new Point(22,17));
+	this.spaces.addEdge(new Point(22,17), new Point(23,17));
+	
+	// x = 23
+	this.spaces.addEdge(new Point(23,7), new Point(23,8));
+	this.spaces.addEdge(new Point(23,8), new Point(24,8));
+	this.spaces.addEdge(new Point(23,8), new Point(23,9));
+	this.spaces.addEdge(new Point(23,16), new Point(23,17));
+	this.spaces.addEdge(new Point(23,17), new Point(24,17));
   }
   
   this.setGame = function()
