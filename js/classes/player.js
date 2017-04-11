@@ -5,13 +5,18 @@ function Player(name, character)
   // after character has been selected
   this.character = character; 
   this.position = new Point();
-  this.name = name;
   this.color = '';
+  this.divBase = '';
+  this.playerName = name;
+  this.hand = [];
+  this.accused = false;
+  this.secretPassage = false;
   
+  // canvas variables
   this.piece = null;
+  this.known = null;
   
-  this.die = [1,2,3,4,5,6];
-  
+  // gameplay variables
   switch(character)
   {
     case 'ariel':
@@ -44,11 +49,6 @@ function Player(name, character)
       this.position.updatePoint(1,6);
     break;
   };
-  
-  this.playerName = name;
-  this.hand = [];
-  this.accused = false;
-  //this.knownList = new Canvas();
 	
   // TOGGLE FUNCTIONS
   this.toggleAccused = function()
@@ -65,7 +65,7 @@ function Player(name, character)
 	
   this.toggleSecretPassage = function()
   {
-    if( this.secretRoom == true )
+    if( this.secretPassage )
     {
       // assumes fn is called after player 
       // has decided whether or not to use
@@ -117,9 +117,10 @@ function Player(name, character)
   
   this.assignDiv = function(i, w, h)
   {
-    var div = 'player' + (i+1);
-	document.getElementById(div).style.display = "block";
-	this.piece = new Canvas(div);
+    this.divBase = 'p' + (i+1);
+	// assign player piece div
+	document.getElementById(this.divBase+'piece').style.display = "block";
+	this.piece = new Canvas(this.divBase+'piece');
 	this.piece.canvas.width = w;
 	this.piece.canvas.height = h;
 	this.piece.setValues('none', this.color);
@@ -129,4 +130,25 @@ function Player(name, character)
   {
     //console.log(this.die.randomElement());
   };
+  
+  this.showKnown = function()
+  {
+    if(this.known == null)
+	{
+      document.getElementById(this.divBase+'known').style.display = "block";
+	  this.known = new Canvas(this.divBase+'known');
+	  this.known.canvas.width = 100;
+	  this.known.canvas.height = 100;
+	  this.known.toggleDrawable();
+	}
+	else
+	{
+	  document.getElementById(this.divBase+'known').style.display="block";
+	}
+  }
+  
+  this.hideKnown = function()
+  {
+    document.getElementById(this.divBase+'known').style.display="none";
+  }
 }

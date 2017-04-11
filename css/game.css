@@ -1,6 +1,6 @@
 body
 {
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 .adjustForKnown
@@ -19,20 +19,19 @@ body
 	width: 100%;
 }
 
-#board
+#board, #known
 {
   position: relative;
 }
 
-#boardCanvas
+#boardCanvas, #knownCanvas
 {
-  z-index: 0;
-  position: absolute;
+  position: relative;
 }
 
 #playerView
 {
-  position: absolute;
+  position: relative;
 }
 
 .characterPiece
@@ -41,8 +40,16 @@ body
   z-index: 1;
 }
 
-#player1, #player2, #player3,
-#player4, #player5, #player6
+.known
+{
+  position: absolute;
+  z-index: 1;
+}
+
+#p1piece, #p2piece, #p3piece,
+#p4piece, #p5piece, #p6piece,
+#p1known, #p2known, #p3known,
+#p4known, #p5known, #p6known
 {
   display: none;
 }

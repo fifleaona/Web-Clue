@@ -15,18 +15,23 @@
   <div id="known">
     <!-- Canvas element -->
     <canvas id="knownCanvas"></canvas>
+    <canvas id="p1known" class="known"></canvas>
+    <canvas id="p2known" class="known"></canvas>
+    <canvas id="p3known" class="known"></canvas>
+    <canvas id="p4known" class="known"></canvas>
+    <canvas id="p5known" class="known"></canvas>
+    <canvas id="p6known" class="known"></canvas>
   </div>
 	
   <div id="board">
     <!-- Canvas element -->
     <canvas id="boardCanvas"></canvas>
-	<canvas id="drawCanvas" class="characterPiece"></canvas>
-	<canvas id="player1" class="characterPiece"></canvas>
-	<canvas id="player2" class="characterPiece"></canvas>
-	<canvas id="player3" class="characterPiece"></canvas>
-	<canvas id="player4" class="characterPiece"></canvas>
-	<canvas id="player5" class="characterPiece"></canvas>
-	<canvas id="player6" class="characterPiece"></canvas>
+	<canvas id="p1piece" class="characterPiece"></canvas>
+	<canvas id="p2piece" class="characterPiece"></canvas>
+	<canvas id="p3piece" class="characterPiece"></canvas>
+	<canvas id="p4piece" class="characterPiece"></canvas>
+	<canvas id="p5piece" class="characterPiece"></canvas>
+	<canvas id="p6piece" class="characterPiece"></canvas>
   </div>
 	
   <div id="playerView">

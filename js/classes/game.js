@@ -13,75 +13,11 @@ function Game(arr)
   }
   
   this.board = new Canvas('boardCanvas');
-  this.draw = new Canvas('drawCanvas');
+  this.knownBkg = new Canvas('knownCanvas');
   this.rooms = [];
+  this.die = [1,2,3,4,5,6];
   
-  this.walls = this.perimeter = [
-	new Point(1,1),
-	new Point(8,1),
-	new Point(8,2),
-	new Point(9,2),
-	new Point(9,1),
-	new Point(16,1),
-	new Point(16,2),
-	new Point(17,2),
-	new Point(17,1),
-	new Point(18,1),
-	new Point(18,2),
-	new Point(19,2),
-	new Point(19,1),
-	new Point(25,1),
-	new Point(25,7),
-	new Point(24,7),
-	new Point(24,8),
-	new Point(25,8),
-	new Point(25,9),
-	new Point(24,9),
-	new Point(24,10),
-	new Point(25,10),
-	new Point(25,17),
-	new Point(24,17),
-	new Point(24,18),
-	new Point(25,18),
-	new Point(25,19),
-	new Point(24,19),
-	new Point(24,20),
-	new Point(25,20),
-	new Point(25,25),
-	new Point(19,25),
-	new Point(19,24),
-	new Point(18,24),
-	new Point(18,25),
-	new Point(16,25),
-	new Point(16,26),
-	new Point(10,26),
-	new Point(10,25),
-	new Point(8,25),
-	new Point(8,24),
-	new Point(7,24),
-	new Point(7,25),
-	new Point(1,25),
-	new Point(1,21),
-	new Point(2,21),
-	new Point(2,20),
-	new Point(1,20),
-	new Point(1,19),
-	new Point(2,19),
-	new Point(2,18),
-	new Point(1,18),
-	new Point(1,13),
-	new Point(2,13),
-	new Point(2,12),
-	new Point(1,12),
-	new Point(1,8),
-	new Point(2,8),
-	new Point(2,7),
-	new Point(1,7),
-	new Point(1,6),
-	new Point(2,6),
-	new Point(2,5),
-	new Point(1,5)
-  ]
+  this.lastPlayersActions = "";
   
   
   // FUNCTION DEFININTIONS
@@ -203,7 +139,8 @@ function Game(arr)
 	this.spaces.addEdge(new Point(6,18), new Point(7,18));
 	this.spaces.addEdge(new Point(6,18), new Point(6,19));
 	this.spaces.addEdge(new Point(6,19), new Point(7,19));
-	this.spaces.addEdge(new Point(6,19), "Cave");
+	this.spaces.addEdge(new Point(6,19), new Point(6,20));
+	this.spaces.addEdge(new Point(6,20), "Cave");
 	
 	// x = 7
 	this.spaces.addEdge(new Point(7,1), new Point(7,2));
@@ -292,7 +229,7 @@ function Game(arr)
 	this.spaces.addEdge(new Point(10,8), new Point(11,8));
 	this.spaces.addEdge(new Point(10,16), new Point(11,16));
 	this.spaces.addEdge(new Point(10,16), new Point(10,17));
-	this.sapces.addEdge(new Point(10,17), new Point(11,17));
+	this.spaces.addEdge(new Point(10,17), new Point(11,17));
 	this.spaces.addEdge(new Point(10,17), "Forest");
 	this.spaces.addEdge(new Point(10,24), new Point(10,25));
 	
@@ -340,9 +277,9 @@ function Game(arr)
 	this.spaces.addEdge(new Point(15,16), new Point(16,16));
 	this.spaces.addEdge(new Point(15,16), new Point(15,17));
 	this.spaces.addEdge(new Point(15,17), new Point(16,17));
-	this.spaces.addEdge(new Point(15,17), "Forest"));
-	this.spaces.addEdge(new Point(15,24), new Point(15,23));
-	this.spaces.addEdge(new POint(15,23), new Point(16,23));
+	this.spaces.addEdge(new Point(15,17), "Forest");
+	this.spaces.addEdge(new Point(15,24), new Point(15,25));
+	this.spaces.addEdge(new Point(15,24), new Point(16,24));
 	
 	// x = 16
 	this.spaces.addEdge(new Point(16,2), new Point(17,2));
@@ -385,8 +322,6 @@ function Game(arr)
 	this.spaces.addEdge(new Point(17,8), new Point(18,8));
 	this.spaces.addEdge(new Point(17,8), new Point(17,9));
 	this.spaces.addEdge(new Point(17,9), new Point(18,9));
-	this.spaces.addEdge(new Point(17,15), new Point(18,15));
-	this.spaces.addEdge(new Point(17,15), new Point(17,16));
 	this.spaces.addEdge(new Point(17,16), new Point(18,16));
 	this.spaces.addEdge(new Point(17,16), new Point(17,17));
 	this.spaces.addEdge(new Point(17,17), new Point(18,17));
@@ -411,8 +346,6 @@ function Game(arr)
 	this.spaces.addEdge(new Point(18,8), new Point(18,9))
 	this.spaces.addEdge(new Point(18,8), "Ballroom");
 	this.spaces.addEdge(new Point(18,8), new Point(19,8));
-	this.spaces.addEdge(new Point(18,15), new Point(19,15));
-	this.spaces.addEdge(new Point(18,15), new Point(18,16));
 	this.spaces.addEdge(new Point(18,16), new Point(19,16));
 	this.spaces.addEdge(new Point(18,16), new Point(18,17));
 	this.spaces.addEdge(new Point(18,17), new Point(18,18));
@@ -426,10 +359,11 @@ function Game(arr)
 	this.spaces.addEdge(new Point(19,8), new Point(20,8));
 	this.spaces.addEdge(new Point(19,8), new Point(19,9));
 	this.spaces.addEdge(new Point(19,9), new Point(20,9));
-	this.spaces.addEdge(new Point(19,15), new Point(19,16));
-	this.spaces.addEdge(new Point(19,16), new Point(20,16));
-	this.spaces.addEdge(new Point(19,16), new Point(19,17));
+	//this.spaces.addEdge(new Point(19,16), new Point(20,16));
+	//this.spaces.addEdge(new Point(19,16), new Point(19,17));
 	this.spaces.addEdge(new Point(19,17), new Point(20,17));
+	this.spaces.addEdge(new Point(19,17), new Point(19,18));
+	this.spaces.addEdge(new Point(19,18), new Point(20,18));
 	
 	// x = 20
 	this.spaces.addEdge(new Point(20,7), new Point(21,7));
@@ -437,10 +371,12 @@ function Game(arr)
 	this.spaces.addEdge(new Point(20,8), new Point(21,8));
 	this.spaces.addEdge(new Point(20,8), new Point(20,9));
 	this.spaces.addEdge(new Point(20,9), new Point(21,9));
-	this.spaces.addEdge(new Point(20,16), new Point(21,16));
-	this.spaces.addEdge(new Point(20,16), new Point(20,17));
-	this.spaces.addEdge(new Point(20,17), "Ballroom");
+	//this.spaces.addEdge(new Point(20,16), new Point(21,16));
+	//this.spaces.addEdge(new Point(20,16), new Point(20,17));
 	this.spaces.addEdge(new Point(20,17), new Point(21,17));
+	this.spaces.addEdge(new Point(20,17), new Point(20,18));
+	this.spaces.addEdge(new Point(20,18), "Ballroom");
+	this.spaces.addEdge(new Point(20,18), new Point(21,18));
 	
 	// x = 21
 	this.spaces.addEdge(new Point(21,7), new Point(22,7));
@@ -448,8 +384,8 @@ function Game(arr)
 	this.spaces.addEdge(new Point(21,8), new Point(22,8));
 	this.spaces.addEdge(new Point(21,8), new Point(21,9));
 	this.spaces.addEdge(new Point(21,9), new Point(22,9));
-	this.spaces.addEdge(new Point(21,16), new Point(22,16));
-	this.spaces.addEdge(new Point(21,16, new Point(21,17));
+	//this.spaces.addEdge(new Point(21,16), new Point(22,16));
+	//this.spaces.addEdge(new Point(21,16), new Point(21,17));
 	this.spaces.addEdge(new Point(21,17), new Point(22,17));
 	
 	// x = 22
@@ -458,16 +394,18 @@ function Game(arr)
 	this.spaces.addEdge(new Point(22,8), new Point(23,8));
 	this.spaces.addEdge(new Point(22,8), new Point(22,9));
 	this.spaces.addEdge(new Point(22,9), new Point(23,9));
-	this.spaces.addEdge(new Point(22,16), new Point(23,16));
-	this.spaces.addEdge(new Point(22,16), new Point(22,17));
+	//this.spaces.addEdge(new Point(22,16), new Point(23,16));
+	//this.spaces.addEdge(new Point(22,16), new Point(22,17));
 	this.spaces.addEdge(new Point(22,17), new Point(23,17));
+	this.spaces.addEdge(new Point(22,17), new Point(22,18));
+	this.spaces.addEdge(new Point(22,18), new Point(23,18));
 	
 	// x = 23
 	this.spaces.addEdge(new Point(23,7), new Point(23,8));
 	this.spaces.addEdge(new Point(23,8), new Point(24,8));
 	this.spaces.addEdge(new Point(23,8), new Point(23,9));
-	this.spaces.addEdge(new Point(23,16), new Point(23,17));
-	this.spaces.addEdge(new Point(23,17), new Point(24,17));
+	//this.spaces.addEdge(new Point(23,16), new Point(23,17));
+	this.spaces.addEdge(new Point(23,18), new Point(24,18));
   }
   
   this.setGame = function()
@@ -478,6 +416,8 @@ function Game(arr)
 	
 	this.setSpaces();
 	this.board.setValues('../imgs/foundation.png','#FF2323');
+	this.knownBkg.setValues('../imgs/score_card.jpg', '#FF2323');
+	
 	// --- each player's canvas layer
 	for(var i=0; i<this.players.length; i++)
 	{
@@ -485,12 +425,7 @@ function Game(arr)
 	  this.players[i].piece.drawPiece(this.players[i].position);
 	}
 	
-	//for(var j=0; j<this.spaces.node_list[1].edge_list.length; j++)
-	//{
-	//  this.players[5].piece.drawSquare(this.spaces.node_list[1].edge_list[j]);
-	//}
-	
-	this.players[0].rollDie();
+	this.takeTurn(3);
   }
   
   // GET FUNCTIONS
@@ -507,5 +442,78 @@ function Game(arr)
   this.getHand = function(num)
   {
     this.players[num-1].showHand(this.deck);
+  }
+  
+  this.takeTurn = function(num)
+  {
+	var numSpaces = 0;
+	// display last player's actions
+    // display player's known list
+	this.players[num].showKnown();
+	
+	// display player's hand
+	this.players[num].showHand();
+	
+	// if player is accused
+    if(this.players[num].accused)
+	{
+	  // set accused to false
+	  this.players[num].toggleAccused();
+	  // ask if the player would like to make an accusation
+    }
+	else
+	{
+	  // otherwise, continue the turn as usual
+  	  // if player is in a room with a secret door
+	  if(this.players[num].secretPassage)
+	  {
+		// set secretPassage to false
+		this.players[num].toggleSecretPassage();
+	    // display "would you like to use the secret door to [room]"
+	  }
+	  else
+	  {
+  	    // otherewise, show a screen with a die roll
+	    //$('#rollDie').show();
+	  
+	    // once the die is rolled, display possible spaces
+	   // $('#confirmRoll').click(function()
+	    //{
+	      numSpaces = this.die.randomElement();
+		  // display numSpaces somewhere on the screen
+		  // execute show spaces
+	    //});
+		
+		this.showSpaces(numSpaces, 
+		                this.spaces.findNode(this.players[num].position),
+						this.players[num]);
+	  }
+	}
+  }
+  
+  this.showSpaces = function(num,index,player)
+  {
+    if(num==0)
+	{
+	  // display confirmation
+	  // if yes is clicked
+	  // update player's position
+	  // remove all touched that have been toggled
+	  // exit
+	  // if no is clicked, run function(num+1)
+	}
+	else
+	{
+	  // display possible spaces
+	  for(var i=0; i<this.spaces.node_list[index].edge_list.length; i++)
+	  {
+	    player.piece.drawSquare(this.spaces.node_list[index].edge_list[i]);
+	  }
+      // if a previous space is clicked
+        // call function(num+1)
+        // move player
+        // toggle touched function(num-1)
+        // call function(num-1)
+	}
   }
 }

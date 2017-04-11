@@ -7,6 +7,11 @@ function Canvas(id)
   this.squareSize = 25;
   this.radius = 25/2;
   
+  this.drawable = false;
+  this.clickX = [];
+  this.clickY = [];
+  this.clickDrag = [];
+  
   this.setValues = function(imgsrc, color)
   {
 	if(imgsrc != 'none')
@@ -62,5 +67,21 @@ function Canvas(id)
   {
     this.radius = newSqSz/2;
 	this.squareSize = newSqSz;
+  }
+  
+  this.toggleDrawable = function()
+  {
+    if(this.drawable)
+	{
+	  this.drawable = false;
+	}
+	else
+	{
+	  this.drawable = true;
+	}
+  }
+  
+  this.redraw = function()
+  {
   }
 }

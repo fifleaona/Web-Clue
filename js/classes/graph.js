@@ -2,10 +2,23 @@ function Node(pos)
 {
   this.edge_list = [];
   this.position = pos;
+  this.touched = false;
   
   this.addEdge = function(endPoint)
   {
     this.edge_list.push(endPoint);
+  }
+  
+  this.toggleTouched = function()
+  {
+    if(this.touched)
+	{
+      this.touched = false;
+	}
+	else
+	{
+	  this.touched = true;
+	}
   }
 }
 

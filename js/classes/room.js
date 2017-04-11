@@ -134,4 +134,5 @@ function Room()
 	this.doors.push(["tower"]);
 	this.doors.push([new Point(18,7), new Point(19,7)]);
   }
+
 }
