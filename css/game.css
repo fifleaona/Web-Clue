@@ -19,19 +19,8 @@ body
 	width: 100%;
 }
 
-#board, #known
-{
-  position: relative;
-}
-
-#boardCanvas, #knownCanvas
-{
-  position: relative;
-}
-
 #playerView
 {
-  position: relative;
 }
 
 .characterPiece
@@ -44,6 +33,22 @@ body
 {
   position: absolute;
   z-index: 1;
+}
+
+#knownCanvas
+{
+  position: relative;
+}
+
+#boardCanvas
+{
+  position: absolute;
+}
+
+#spaces
+{
+  position: absolute;
+  z-index: 3;
 }
 
 #p1piece, #p2piece, #p3piece,

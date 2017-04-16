@@ -33,7 +33,7 @@ $(function()
   
   gameObj.setGame();
   
-  gameObj.getHand(2);
+  //gameObj.getHand(2);
   // put toggle values here
   
   //console.log($.parseJSON($('#hidden').contents()));
@@ -44,5 +44,6 @@ $(function()
    // playerArr[cntr] = new Player(playerArr[cntr]['playerNum'], playerArr[cntr]['playerName'], playerArr[cntr]['charName']);
   //}
   
-  	 
+  
+  // draw events
 });

@@ -118,6 +118,7 @@ function Player(name, character)
   this.assignDiv = function(i, w, h)
   {
     this.divBase = 'p' + (i+1);
+	
 	// assign player piece div
 	document.getElementById(this.divBase+'piece').style.display = "block";
 	this.piece = new Canvas(this.divBase+'piece');
@@ -126,15 +127,12 @@ function Player(name, character)
 	this.piece.setValues('none', this.color);
   };
   
-  this.rollDie = function()
-  {
-    //console.log(this.die.randomElement());
-  };
-  
   this.showKnown = function()
   {
+	console.log(this.divBase);
     if(this.known == null)
 	{
+	  console.log("hi");
       document.getElementById(this.divBase+'known').style.display = "block";
 	  this.known = new Canvas(this.divBase+'known');
 	  this.known.canvas.width = 100;
@@ -145,6 +143,8 @@ function Player(name, character)
 	{
 	  document.getElementById(this.divBase+'known').style.display="block";
 	}
+	
+	//document.getElementById(this.divBase+'known').style.display="none";
   }
   
   this.hideKnown = function()

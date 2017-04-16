@@ -14,13 +14,15 @@
 
   <div id="known">
     <!-- Canvas element -->
-    <canvas id="knownCanvas"></canvas>
-    <canvas id="p1known" class="known"></canvas>
-    <canvas id="p2known" class="known"></canvas>
-    <canvas id="p3known" class="known"></canvas>
-    <canvas id="p4known" class="known"></canvas>
-    <canvas id="p5known" class="known"></canvas>
-    <canvas id="p6known" class="known"></canvas>
+	<div id="knownCanvasWrapper">
+      <canvas id="knownCanvas"></canvas>
+      <canvas id="p1known" class="known"></canvas>
+      <canvas id="p2known" class="known"></canvas>
+      <canvas id="p3known" class="known"></canvas>
+      <canvas id="p4known" class="known"></canvas>
+      <canvas id="p5known" class="known"></canvas>
+      <canvas id="p6known" class="known"></canvas>
+	</div>
   </div>
 	
   <div id="board">
@@ -32,6 +34,7 @@
 	<canvas id="p4piece" class="characterPiece"></canvas>
 	<canvas id="p5piece" class="characterPiece"></canvas>
 	<canvas id="p6piece" class="characterPiece"></canvas>
+	<canvas id="spaces"></canvas>
   </div>
 	
   <div id="playerView">

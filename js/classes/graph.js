@@ -3,6 +3,7 @@ function Node(pos)
   this.edge_list = [];
   this.position = pos;
   this.touched = false;
+  this.highlighted = false;
   
   this.addEdge = function(endPoint)
   {
@@ -18,6 +19,18 @@ function Node(pos)
 	else
 	{
 	  this.touched = true;
+	}
+  }
+  
+  this.toggleHighlighted = function()
+  {
+    if(this.highlighted)
+	{
+	  this.highlighted = false;
+	}
+	else
+	{
+      this.highlighted = true;
 	}
   }
 }
