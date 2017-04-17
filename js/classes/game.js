@@ -135,15 +135,27 @@ function Game(arr)
 		  // execute show spaces
 	    //});
 		
-		this.showSpaces(6, 
-		                this.spaceCanvas.spaces.findNode(this.players[num].position),
+		this.showSpaces(this.spaceCanvas.spaces.findNode(this.players[num].position),
 						this.players[num]);
 	  }
 	}
   }
   
-  this.showSpaces = function(num,index,player)
+  this.showSpaces = function(index,player)
   {
+    this.spaceCanvas.spaceSelection = true;
+	// display possible spaces
+	for(var i=0; i<this.spaceCanvas.getNumEdges(index); i++)
+	{
+	  player.piece.drawSquare(this.spaceCanvas.spaces.node_list[index].edge_list[i]);
+      var loc = this.spaceCanvas.spaces.findNode(this.spaceCanvas.spaces.node_list[index].edge_list[i]);
+      this.spaceCanvas.spaces.node_list[loc].toggleHighlighted();
+	}
+  }
+  
+  this.smtho = function(num,index,player)
+  {
+	console.log("you have " + num);
     if(num==0)
 	{
 	  // display confirmation
@@ -175,22 +187,24 @@ function Game(arr)
           var newLoc = scope.spaceCanvas.spaces.findNode(newPt);
 
           // move piece
-          player.position.updatePoint(newLoc);
+          player.position.updatePoint(newPt);
           player.piece.redrawPiece(player.position);
 
           // if the highlighted point has been touched before
           if(scope.spaceCanvas.spaces.node_list[newLoc].touched)
           {
             // call function (num + 1)
-            scope.showSpaces(num+1,index,player);
+			scope.spaceCanvas.movePiece = false;
+            scope.showSpaces(num+1,newLoc,player);
           }
           else
           {
           // if the piece hasn't been touched before
            // turn touched to true
+		   scope.spaceCanvas.movePiece = false;
            scope.spaceCanvas.spaces.node_list[newLoc].toggleTouched();
            // call function (num-1) 
-           scope.showSpaces(num-1,index,player);
+           scope.showSpaces(num-1,newLoc,player);
           }
         }
         console.log(scope.spaceCanvas.movePiece);
