@@ -11,10 +11,12 @@ function Player(name, character)
   this.hand = [];
   this.accused = false;
   this.secretPassage = false;
+  this.active = false;
   
   // canvas variables
   this.piece = null;
   this.known = null;
+  var scope = this;
   
   // gameplay variables
   switch(character)
@@ -124,27 +126,46 @@ function Player(name, character)
 	this.piece = new Canvas(this.divBase+'piece');
 	this.piece.canvas.width = w;
 	this.piece.canvas.height = h;
-	this.piece.setValues('none', this.color);
+	this.piece.setStyleColor(this.color);
   };
   
   this.showKnown = function()
   {
-	console.log(this.divBase);
     if(this.known == null)
 	{
-	  console.log("hi");
       document.getElementById(this.divBase+'known').style.display = "block";
 	  this.known = new Canvas(this.divBase+'known');
 	  this.known.canvas.width = 100;
 	  this.known.canvas.height = 100;
-	  this.known.toggleDrawable();
+	  
+	  this.known.canvas.addEventListener("mouseleave", function(e)
+      {
+        scope.known.paint = false;
+      });
+  
+      this.known.canvas.addEventListener("mouseup", function(e)
+      {
+        scope.known.paint = false;
+      });
+  
+      this.known.canvas.addEventListener("mousemove", function(e)
+      {
+		if(scope.known.paint)
+		{
+          scope.known.addClick(e.pageX, e.pageY, true);
+	      scope.known.redraw();
+		}
+      });
+  
+      this.known.canvas.addEventListener("mousedown", function(e)
+      {
+        scope.known.updateClick(e.pageX, e.pageY);
+      });
 	}
 	else
 	{
 	  document.getElementById(this.divBase+'known').style.display="block";
 	}
-	
-	//document.getElementById(this.divBase+'known').style.display="none";
   }
   
   this.hideKnown = function()

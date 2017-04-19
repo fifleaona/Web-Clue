@@ -32,12 +32,12 @@ body
 .known
 {
   position: absolute;
-  z-index: 1;
+  z-index: 100;
 }
 
 #knownCanvas
 {
-  position: relative;
+  position: absolute;
 }
 
 #boardCanvas
