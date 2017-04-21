@@ -4,9 +4,9 @@ function Player(name, character)
   // things that are set at the selection page
   // after character has been selected
   this.character = character; 
-  this.position = new Point();
-  this.color = '';
-  this.divBase = '';
+  this.position = new Point(); // move to new piece class
+  this.color = ''; // move to new piece class
+  this.divBase = ''; // probably need to remove this
   this.playerName = name;
   this.hand = [];
   this.accused = false;
@@ -16,10 +16,10 @@ function Player(name, character)
   // canvas variables
   this.piece = null;
   this.known = null;
-  var scope = this;
+  var scope = this; // may decide to not need this idk
   
   // gameplay variables
-  switch(character)
+  switch(character) // still have to decide where this goes
   {
     case 'ariel':
       this.color ='#920031';
@@ -69,16 +69,12 @@ function Player(name, character)
   {
     if( this.secretPassage )
     {
-      // assumes fn is called after player 
-      // has decided whether or not to use
-      // secret passage
       this.secretPassage = false;
     }
 	else
     {
 	  this.secretPassage = true;
-	  // check for secret passage in the Game object
-	}
+    }
   };
   
   this.addCard = function(card)
@@ -87,10 +83,10 @@ function Player(name, character)
   };
 	
   // DRAWING FUNCTIONS
-  this.showHand = function(deck)
+  this.showHand = function(deck) // card showing logic should be moved to card class; card class should store file path
   {	
     var img;
-	var folder;
+    var folder;
     for( var i=0; i<this.hand.length; i++)
     {
 	  // build image tag
@@ -112,7 +108,7 @@ function Player(name, character)
     }
   };
   
-  this.getHandArr = function()
+  this.getHandArr = function() // update to getHand
   {
 	return this.hand;
   };
@@ -129,7 +125,7 @@ function Player(name, character)
 	this.piece.setStyleColor(this.color);
   };
   
-  this.showKnown = function()
+  this.showKnown = function() // anonymize
   {
     if(this.known == null)
 	{
