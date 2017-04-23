@@ -1,12 +1,10 @@
-function Player(name, character)
+function Player(name, character, num, radius)
 {
   // INITIALIZE VARIABLES
   // things that are set at the selection page
   // after character has been selected
-  this.character = character; 
-  this.position = new Point();
-  this.color = '';
-  this.divBase = '';
+  this.character = character;
+  this.divBase = 'p' + (num+1);
   this.playerName = name;
   this.hand = [];
   this.accused = false;
@@ -22,33 +20,27 @@ function Player(name, character)
   switch(character)
   {
     case 'ariel':
-      this.color ='#920031';
-      this.position.updatePoint(17,1);
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(17,1), '#920031');
     break;
 			
     case 'belle':
-      this.color = '#D2F700';
-      this.position.updatePoint(24,8);
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(24,8), '#D2F700');
     break;
 			
     case 'pocahontas':
-      this.color = '#ffffff'; 
-      this.position.updatePoint(15,25);
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(15,25), '#ffffff');
     break;
 			
     case 'tiana':
-      this.color = '#499500';
-      this.position.updatePoint(10,25);
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(10,25), '#499500');
     break;
 			
     case 'jasmine':
-      this.color = '#300571';
-      this.position.updatePoint(1,19);
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(1,19), '#300571');
     break;
 			
     case 'aurora':
-      this.color = '#65016C';
-      this.position.updatePoint(1,6);
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(1,6), '#65016C');
     break;
   };
 	
@@ -69,15 +61,11 @@ function Player(name, character)
   {
     if( this.secretPassage )
     {
-      // assumes fn is called after player 
-      // has decided whether or not to use
-      // secret passage
       this.secretPassage = false;
     }
 	else
     {
 	  this.secretPassage = true;
-	  // check for secret passage in the Game object
 	}
   };
   
@@ -87,28 +75,14 @@ function Player(name, character)
   };
 	
   // DRAWING FUNCTIONS
-  this.showHand = function(deck)
+  this.showHand = function(div)
   {	
-    var img;
-	var folder;
     for( var i=0; i<this.hand.length; i++)
     {
-	  // build image tag
-      if($.inArray(this.hand[i], deck.suspects) >= 0 || this.hand[i]==deck.crime[0])
-	  {
-	    folder = "suspects";
-	  }
-	  else if($.inArray(this.hand[i], deck.weapons) >= 0 || this.hand[i]==deck.crime[1])
-	  {
-	    folder = "weapons";
-	  }
-	  else
-	  {
-	    folder = "rooms";
-	  }
-      img = $('<img class="card" />').attr('src', "../imgs/" + folder + "/" + this.hand[i] + ".png");
+      img = $('<img class="card" />').attr('src',this.hand[i].getFilepath());
+	  
       // print the card out
-      $('#cards').append(img);
+      $(div).append(img);
     }
   };
   
@@ -117,16 +91,21 @@ function Player(name, character)
 	return this.hand;
   };
   
+  this.drawPiece = function(pos)
+  {
+    this.piece.draw(pos);
+  }
+  
   this.assignDiv = function(i, w, h)
   {
     this.divBase = 'p' + (i+1);
 	
 	// assign player piece div
 	document.getElementById(this.divBase+'piece').style.display = "block";
-	this.piece = new Canvas(this.divBase+'piece');
-	this.piece.canvas.width = w;
-	this.piece.canvas.height = h;
-	this.piece.setStyleColor(this.color);
+	//this.piece = new Canvas(this.divBase+'piece');
+	//this.piece.canvas.width = w;
+	//this.piece.canvas.height = h;
+	//this.piece.setStyleColor(this.color);
   };
   
   this.showKnown = function()
@@ -138,34 +117,16 @@ function Player(name, character)
 	  this.known.canvas.width = 100;
 	  this.known.canvas.height = 100;
 	  
-	  this.known.canvas.addEventListener("mouseleave", function(e)
-      {
-        scope.known.paint = false;
-      });
-  
-      this.known.canvas.addEventListener("mouseup", function(e)
-      {
-        scope.known.paint = false;
-      });
-  
-      this.known.canvas.addEventListener("mousemove", function(e)
-      {
-		if(scope.known.paint)
-		{
-          scope.known.addClick(e.pageX, e.pageY, true);
-	      scope.known.redraw();
-		}
-      });
-  
-      this.known.canvas.addEventListener("mousedown", function(e)
-      {
-        scope.known.updateClick(e.pageX, e.pageY);
-      });
 	}
 	else
 	{
 	  document.getElementById(this.divBase+'known').style.display="block";
 	}
+  }
+  
+  this.getPosition = function()
+  {
+    return this.piece.position;
   }
   
   this.hideKnown = function()

@@ -4,17 +4,10 @@ function Canvas(id)
   this.canvasId = id;
  
   this.ctx = this.canvas.getContext("2d");
+  
   this.img = null;
-  
-  this.squareSize = 25;
-  this.radius = 25/2;
-  
-  this.paint = false;
+ 
   this.spaceSelection = false;
-  this.clickPoint = [];
-  this.clickDrag = [];
-  this.mousePoint = new Point(0,0);
-  this.movePiece = false;
   var scope = this;
 
   this.toggleHighlighted = function(nodeIndex, edgeIndex)
@@ -40,71 +33,142 @@ function Canvas(id)
 	this.ctx.strokeStyle = this.ctx.fillStyle = color;
   }
   
+  this.setStrokeSize = function(num)
+  {
+    this.ctx.lineWidth = num;
+  }
+  
   this.getImgSize = function()
   {
 	return new Point(this.img.width, this.img.height);
-  }
-  
-  this.drawPiece = function(pos)
-  {
-    this.ctx.beginPath();
-	this.ctx.arc((pos.x*this.squareSize)+this.radius, (pos.y*this.squareSize)+this.radius, this.radius, 0, 2*Math.PI, true);
-	this.ctx.fill();	
-  }
-
-  this.redrawPiece = function(pos)
-  {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.drawPiece(pos);
   }
   
   this.drawLine = function(startPoint, endPoint)
   {
     this.ctx.beginPath();
 	this.ctx.moveTo(startPoint.x*this.squareSize, startPoint.y*this.squareSize);
-	this.ctx.lineWidth = 2;
 	this.ctx.lineTo(endPoint.x*this.squareSize, endPoint.y*this.squareSize);
 	this.ctx.stroke();
   }
   
-  this.drawSquare = function(startPoint)
+  this.drawSquare = function(startPoint, modifier)
   {
-    rtTopCnr = new Point(startPoint.x+1, startPoint.y);
-    rtBtmCnr = new Point(startPoint.x+1, startPoint.y+1);
-    lftBtmCnr = new Point(startPoint.x, startPoint.y+1);
+	if(modifier==0 || modifier==null)
+	{
+	  modifier = 1;
+	}
+	
+    var rtTopCnr = new Point(startPoint.x+1, startPoint.y);
+    var rtBtmCnr = new Point(startPoint.x+1, startPoint.y+1);
+    var lftBtmCnr = new Point(startPoint.x, startPoint.y+1);
+	
+	this.ctx.moveTo(startPoint.x*modifier, startPoint.y*modifier);
+	this.ctx.lineTo(rtTopCnr.x*modifier, rtTopCnr.y*modifier);
+	this.ctx.lineTo(rtBtmCnr.x*modifier, rtBtmCnr.y*modifier);
+	this.ctx.lineTo(lftBtmCnr.x*modifier, lftBtmCnr.y*modifier);
+	this.ctx.lineTo(startPoint.x*modifier, startPoint.y*modifier);
+  }
+  
+  this.drawEmptySquare = function(startPoint,modifier)
+  {
 	this.ctx.beginPath();
-	this.ctx.moveTo(startPoint.x*this.squareSize, startPoint.y*this.squareSize);
-	this.ctx.lineWidth = 2;
-	this.ctx.lineTo(rtTopCnr.x*this.squareSize, rtTopCnr.y*this.squareSize);
-	this.ctx.lineTo(rtBtmCnr.x*this.squareSize, rtBtmCnr.y*this.squareSize);
-	this.ctx.lineTo(lftBtmCnr.x*this.squareSize, lftBtmCnr.y*this.squareSize);
-	this.ctx.lineTo(startPoint.x*this.squareSize, startPoint.y*this.squareSize);
+	
+	this.drawSquare(startPoint, modifier);
+	
 	this.ctx.stroke();
   }
+  
+  this.drawFilledSquare = function(startPoint)
+  {
+	this.ctx.beginPath();
+	
+	this.drawSquare(startPoint, modifier);
+	
+	this.ctx.stroke();
+  }
+  
+  this.drawCircle = function(centerPoint, modifier, radius)
+  {
+    if(modifier==0 || modifier==null)
+	{
+	  modifier = 1;
+	}
+	
+	if(radius==0 || radius==null)
+	{
+	  radius = 1
+	}
+	
+	this.ctx.arc(centerPoint.x * modifier + radius, centerPoint.y * modifier + radius, 0, 2, 2 * Math.PI, true);
+  }
+  
+  this.drawFilledCircle = function(centerPoint, modifier, radius)
+  {
+    this.ctx.beginPath();
+	this.drawCircle(centerPoint, modifier, radius);
+	this.ctx.fill();
+  }
+  
+  this.drawEmptyCircle = function(centerPoint, modifier, radius)
+  {
+    this.ctx.beginPath();
+	this.drawCircle(centerPoint, modifier, radius);
+	this.ctx.stroke();
+  }
+  
+  this.clear = function()
+  {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+  
+  this.convertClick = function(e, type, squareSize)
+  {
+	var newPoint = null;
+	
+	if(e==null)
+	{
+	  console.log("Error: Must pass click event")
+    }
+	else
+	{
+      var newX = e.pageX - this.canvas.offsetLeft;
+	  var newY = e.pageY - this.canvas.offsetTop;
+	
+	  if(type=='raw' || type=='RAW' || type=='Raw')
+	  {
+	    newPoint = new Point(newX, newY);
+	  }
+	  else
+	  {
+	    if(squareSize != null)
+	    {
+	      newX = Math.floor(newX/squareSize);
+	      newY = Math.floor(newY/squareSize);
+	    }
+	    else
+	    {
+	      console.log("Error: The square size of the board must be passed");
+	    }
+	  
+	    newPoint = new Point(newX, newY);
+	  }
+	}
+	return newPoint;
+  }
+  
+  this.setDimensions = function(w,h)
+  {
+    this.width = w;
+	this.height = h;
+  }
+  
+  // to be gotten rid of eventually 
+  
   
   this.updateTileSize = function(newSqSz)
   {
     this.radius = newSqSz/2;
 	this.squareSize = newSqSz;
-  }
-  
-  this.togglePaint = function(val)
-  {
-	if(val==null)
-	{
-      if(this.paint)
-  	  {
-	    this.paint = false;
-	  }
-	  else
-	  {
-	    this.paint = true;
-	  }
-    }
-	else
-	{
-	  this.paint = val;
-	}
   }
   
   this.toggleSpaceSelection = function()
@@ -119,48 +183,7 @@ function Canvas(id)
 	}
   }
   
-  this.redraw = function()
-  {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-	for(var i=0; i < this.clickPoint.length; i++)
-    {
-	  this.ctx.beginPath();
-	  if(this.clickDrag[i] && i)
-	  {
-	    this.ctx.moveTo(this.clickPoint[i-1].x, this.clickPoint[i-1].y);
-	  }
-	  else
-	  {
-	    this.ctx.moveTo(this.clickPoint[i].x-1, this.clickPoint[i].y);
-	  }
-	  this.ctx.lineTo(this.clickPoint[i].x, this.clickPoint[i].y);
-	  this.ctx.closePath();
-	  this.ctx.stroke();
-	}
-  }
   
-  this.startPaint = function(event)
-  {
-    this.mousePoint.updatePoint(event.pageX - this.canvas.offsetLeft,
-                             	event.pageY - this.canvas.offsetTop);
-	
-	this.paint = true;
-	this.redraw();
-  }
-  
-  this.addClick = function(x,y,dragging)
-  {
-    this.clickPoint.push(new Point(x-this.canvas.offsetLeft,y-this.canvas.offsetTop));
-	this.clickDrag.push(dragging);
-  }  
-  
-  this.updateClick = function(x,y)
-  {
-    this.mousePoint.updatePoint(x-this.canvas.offsetLeft, y-this.canvas.offsetTop);
-	this.togglePaint();
-	this.addClick(x,y);
-	this.redraw();
-  }
   
   //this.canvas.addEventListener("mousedown",function(e)
  // {

@@ -5,6 +5,10 @@ function printCard(div, folder, name)
   $(div).append(appendStart + folder + '/' + name.toLowerCase() + appendEnd);
 }
 
+function takeTurn(playerNum)
+{
+}
+
 function getStuff()
 {
   $.ajax({
@@ -29,7 +33,7 @@ $(function()
 			   {"playerNum":5,"playerName":"Naomi","charName":"ariel"},
 			   {"playerNum":6,"playerName":"Valentine","charName":"tiana"}];
   
-  gameObj = new Game(playerInfo);
+  gameObj = new Game(playerInfo,25);
   
   gameObj.setGame();
   
