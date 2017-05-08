@@ -93,15 +93,21 @@ function Player(name, character, num, radius)
   
   this.drawPiece = function(pos)
   {
+	if(pos!=null)
+	{
     this.piece.draw(pos);
+	}
+	else
+	{
+	  this.piece.draw(this.piece.position);
+	}
   }
   
   this.assignDiv = function(i, w, h)
-  {
-    this.divBase = 'p' + (i+1);
-	
+  {	
 	// assign player piece div
 	document.getElementById(this.divBase+'piece').style.display = "block";
+	this.piece.setDim(w,h);
 	//this.piece = new Canvas(this.divBase+'piece');
 	//this.piece.canvas.width = w;
 	//this.piece.canvas.height = h;
@@ -113,9 +119,9 @@ function Player(name, character, num, radius)
     if(this.known == null)
 	{
       document.getElementById(this.divBase+'known').style.display = "block";
-	  this.known = new Canvas(this.divBase+'known');
-	  this.known.canvas.width = 100;
-	  this.known.canvas.height = 100;
+	  //this.known = new Canvas(this.divBase+'known');
+	  //this.known.canvas.width = 100;
+	  //this.known.canvas.height = 100;
 	  
 	}
 	else
@@ -127,6 +133,11 @@ function Player(name, character, num, radius)
   this.getPosition = function()
   {
     return this.piece.position;
+  }
+  
+  this.highlightSquare = function(pos, modifier)
+  {
+    this.piece.canvas.drawFilledSquare(pos, modifier);
   }
   
   this.hideKnown = function()

@@ -78,7 +78,7 @@ function Canvas(id)
 	this.ctx.stroke();
   }
   
-  this.drawFilledSquare = function(startPoint)
+  this.drawFilledSquare = function(startPoint, modifier)
   {
 	this.ctx.beginPath();
 	
@@ -158,8 +158,8 @@ function Canvas(id)
   
   this.setDimensions = function(w,h)
   {
-    this.width = w;
-	this.height = h;
+    this.canvas.width = w;
+	this.canvas.height = h;
   }
   
   // to be gotten rid of eventually 

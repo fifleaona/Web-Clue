@@ -11,7 +11,7 @@ function Game(arr,squareSize)
   this.players = [];
   for(var i=0; i<arr.length; i++)
   {
-    this.players.push(new Player(arr[i].playerName, arr[i].charName, i, 25/2));
+    this.players.push(new Player(arr[i].playerName, arr[i].charName, i, this.tileSize/2));
   }
   
   // background init
@@ -435,7 +435,7 @@ function Game(arr,squareSize)
 	for(var i=0; i<this.players.length; i++)
 	{
 	  this.players[i].assignDiv(i, 650, 675);
-	  this.players[i].drawPiece;
+	  this.players[i].drawPiece();
 	}
 	
 	this.setSpaces();
@@ -512,7 +512,7 @@ function Game(arr,squareSize)
 	// display possible spaces
 	for(var i=0; i<this.spaces.node_list[index].edge_list.length; i++)
 	{
-	  this.players[this.activePlayer].piece.drawFilledSquare(this.spaces.node_list[index].edge_list[i]);
+	  this.players[this.activePlayer].highlightSquare(this.spaces.node_list[index].edge_list[i], this.tileSize);
       var loc = this.spaces.findNode(this.spaces.node_list[index].edge_list[i]);
       //this.spaces.node_list[loc].toggleHighlighted();
       this.spaces.node_list[loc].highlighted=true;

@@ -35,4 +35,9 @@ function Piece(id,r,pos,c)
 	
 	this.canvas.drawFilledCircle(pos, this.radius*2, this.radius);
   }
+  
+  this.setDim = function(w,h)
+  {
+    this.canvas.setDimensions(w,h);
+  }
 }
