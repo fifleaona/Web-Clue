@@ -25,7 +25,7 @@
 	</div>
   </div>
 	
-  <div id="main>
+  <div id="gamesection">
     <div id="board">
       <!-- Canvas element -->
       <canvas id="boardCanvas"></canvas>

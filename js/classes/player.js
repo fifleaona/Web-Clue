@@ -93,12 +93,13 @@ function Player(name, character, num, radius)
   
   this.drawPiece = function(pos)
   {
-	if(pos!=null)
+	if(pos!=null || pos!=undefined)
 	{
-    this.piece.draw(pos);
+      this.piece.draw(pos);
 	}
 	else
 	{
+      console.log(this.piece.position);
 	  this.piece.draw(this.piece.position);
 	}
   }
