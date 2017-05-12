@@ -551,8 +551,8 @@ function Game(arr,squareSize)
   
   this.movePiece = function(loc)
   {
-	this.players[this.activePlayer].position.updatePoint(loc.x, loc.y);
-    this.players[this.activePlayer].piece.redrawPiece(this.players[this.activePlayer].position);
+	this.players[this.activePlayer].updatePosition(loc);
+    this.players[this.activePlayer].redrawPiece(loc);
   }
 
   this.spaceCanvas.canvas.addEventListener("mousedown",function(e)
@@ -569,7 +569,7 @@ function Game(arr,squareSize)
 		scope.spaceSelection = false;
 		
 		// hide spaces, which sets highlighted to false
-		scope.hideSpaces(scope.players[scope.activePlayer].position);
+		scope.hideSpaces(scope.players[scope.activePlayer].getPosition());
 		
 		// move piece
 		scope.movePiece(tempPt);

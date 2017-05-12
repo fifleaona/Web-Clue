@@ -109,6 +109,11 @@ function Player(name, character, num, radius)
 	}
   }
   
+  this.redrawPiece = function(pos)
+  {
+    this.piece.draw(pos);
+  }
+  
   this.assignDiv = function(i, w, h)
   {	
 	// assign player piece div
@@ -139,6 +144,11 @@ function Player(name, character, num, radius)
   this.getPosition = function()
   {
     return this.piece.position;
+  }
+  
+  this.updatePosition = function(point)
+  {
+    this.piece.position.updatePoint(point);
   }
   
   this.highlightSquare = function(pos, modifier)
