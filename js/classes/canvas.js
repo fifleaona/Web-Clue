@@ -30,7 +30,7 @@ function Canvas(id)
   
   this.setStyleColor = function(color)
   {
-	this.ctx.strokeStyle = this.ctx.fillStyle = color;
+	this.ctx.fillStyle = this.ctx.strokeStyle = color;
   }
   
   this.setStrokeSize = function(num)
@@ -84,7 +84,7 @@ function Canvas(id)
 	
 	this.drawSquare(startPoint, modifier);
 	
-	this.ctx.stroke();
+	this.ctx.fill();
   }
   
   this.drawCircle = function(centerPoint, modifier, radius)
@@ -96,10 +96,10 @@ function Canvas(id)
 	
 	if(radius==0 || radius==null)
 	{
-	  radius = 1
+	  radius = 1;
 	}
 	
-	this.ctx.arc(centerPoint.x * modifier + radius, centerPoint.y * modifier + radius, 0, 2, 2 * Math.PI, true);
+	this.ctx.arc((centerPoint.x * modifier) + radius, (centerPoint.y * modifier) + radius, radius, 0, 2 * Math.PI, true);
   }
   
   this.drawFilledCircle = function(centerPoint, modifier, radius)
@@ -140,7 +140,7 @@ function Canvas(id)
 	  }
 	  else
 	  {
-	    if(squareSize != null)
+	    if(squareSize)
 	    {
 	      newX = Math.floor(newX/squareSize);
 	      newY = Math.floor(newY/squareSize);

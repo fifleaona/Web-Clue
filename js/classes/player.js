@@ -20,27 +20,33 @@ function Player(name, character, num, radius)
   switch(character)
   {
     case 'ariel':
-	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(17,1), '#920031');
+	  this.color = '#920031';
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(17,1));
     break;
 			
     case 'belle':
-	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(24,8), '#D2F700');
+	  this.color = '#D2F700';
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(24,8));
     break;
 			
     case 'pocahontas':
-	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(15,25), '#ffffff');
+	  this.color = '#ffffff';
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(15,25));
     break;
 			
     case 'tiana':
-	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(10,25), '#499500');
+	  this.color = '#499500';
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(10,25));
     break;
 			
     case 'jasmine':
-	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(1,19), '#300571');
+	  this.color = '#300571';
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(1,19));
     break;
 			
     case 'aurora':
-	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(1,6), '#65016C');
+	  this.color = '#65016C';
+	  this.piece = new Piece(this.divBase + 'piece', radius, new Point(1,6));
     break;
   };
 	
@@ -99,7 +105,6 @@ function Player(name, character, num, radius)
 	}
 	else
 	{
-      console.log(this.piece.position);
 	  this.piece.draw(this.piece.position);
 	}
   }
@@ -112,7 +117,7 @@ function Player(name, character, num, radius)
 	//this.piece = new Canvas(this.divBase+'piece');
 	//this.piece.canvas.width = w;
 	//this.piece.canvas.height = h;
-	//this.piece.setStyleColor(this.color);
+	this.piece.setStyleColor(this.color);
   };
   
   this.showKnown = function()

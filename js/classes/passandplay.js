@@ -559,7 +559,7 @@ function Game(arr,squareSize)
   {
     if(scope.spaceSelection)
 	{
-	  var tempPt = scope.convertClick(e.pageX, e.pageY);
+	  var tempPt = scope.spaceCanvas.convertClick(e,'none',scope.tileSize);
 	  console.log("x: " + tempPt.x);
 	  console.log("y: " + tempPt.y);
 	  // if highlighted

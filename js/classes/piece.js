@@ -1,7 +1,6 @@
-function Piece(id,r,pos,c)
+function Piece(id,r,pos)
 {
   this.canvas = new Canvas(id);
-  this.canvas.setStyleColor(c);
   
   this.radius = r;
   this.move = false;
@@ -26,7 +25,7 @@ function Piece(id,r,pos,c)
   
   this.draw = function(pos)
   {
-	var translatePos = null;
+	
     if(pos!=null)
 	{
 	  this.canvas.clear();
@@ -39,5 +38,10 @@ function Piece(id,r,pos,c)
   this.setDim = function(w,h)
   {
     this.canvas.setDimensions(w,h);
+  }
+  
+  this.setStyleColor = function(color)
+  {
+    this.canvas.setStyleColor(color);
   }
 }
