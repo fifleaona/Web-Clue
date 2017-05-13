@@ -109,11 +109,6 @@ function Player(name, character, num, radius)
 	}
   }
   
-  this.redrawPiece = function(pos)
-  {
-    this.piece.draw(pos);
-  }
-  
   this.assignDiv = function(i, w, h)
   {	
 	// assign player piece div
