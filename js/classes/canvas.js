@@ -25,6 +25,7 @@ function Canvas(id)
 	  scope.canvas.width = scope.img.width;
 	  scope.canvas.height = scope.img.height;
 	  scope.ctx.drawImage(scope.img, 0, 0, scope.img.width, scope.img.height);
+	  return new Point(scope.img.width, scope.img.height)
 	}
   }
   
@@ -182,8 +183,6 @@ function Canvas(id)
 	  this.spaceSelection = true;
 	}
   }
-  
-  
   
   //this.canvas.addEventListener("mousedown",function(e)
  // {

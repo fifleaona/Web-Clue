@@ -379,7 +379,7 @@ $(function()
   gameObj = new Game(playerInfo,1,25);
   
   addSpaces(gameObj);
-  
+  gameObj.setBkgs('../imgs/foundation.png','../imgs/score_card.jpg');
   gameObj.setGame();
   gameObj.takeTurn(2);
   

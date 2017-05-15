@@ -2,7 +2,7 @@ function Game(arr,numDie,squareSize)
 {
   // INITIALIZATION
   // canvas init
-  this.knownBkg = new Canvas('knownCanvas');
+  this.known = new Canvas('knownCanvas');
   this.board = new Canvas('boardCanvas');
   this.tileSize = squareSize;
   this.spaceCanvas = new Canvas('spaces');
@@ -32,19 +32,25 @@ function Game(arr,numDie,squareSize)
     //this.deck.dealCards(this.players);
 	// set up game board:
 	// --- board background
-	this.board.setImg('../imgs/foundation.png');
-	this.knownBkg.setImg('../imgs/score_card.jpg');
+	
 	
 	// --- each player's canvas layer
-	for(var i=0; i<this.players.length; i++)
-	{
-	  this.players[i].assignDiv(i, 650, 675);
-	  this.players[i].drawPiece();
-	}
 	
 	this.spaceCanvas.canvas.width = 650;
 	this.spaceCanvas.canvas.height = 675;
 	//this.takeTurn(2);
+  }
+  
+  this.setBkgs = function(boardBkg, knownBkg)
+  {
+    var dim = this.board.setImg(boardBkg);
+	this.known.setImg(knownBkg);
+	
+	for(var i=0; i<this.players.length; i++)
+	{
+	  this.players[i].assignDiv(i, dim.x, dim.y);
+	  this.players[i].drawPiece();
+	}
   }
   
   this.setRooms = function() // move this function to game.js
