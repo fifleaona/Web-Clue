@@ -43,14 +43,20 @@ function Game(arr,numDie,squareSize)
   
   this.setBkgs = function(boardBkg, knownBkg)
   {
-    var dim = this.board.setImg(boardBkg);
-	this.known.setImg(knownBkg);
+    var boardImg = new Image();
+	boardImg.src = boardBkg;
 	
-	for(var i=0; i<this.players.length; i++)
+	boardImg.onload = function()
 	{
-	  this.players[i].assignDiv(i, dim.x, dim.y);
-	  this.players[i].drawPiece();
+	  for(var i=0; i<scope.players.length; i++)
+	  {
+	    scope.players[i].assignDiv(i, boardImg.width, boardImg.height);
+	    scope.players[i].drawPiece();
+	  }
 	}
+	
+	this.board.setImg(boardBkg);
+	this.known.setImg(knownBkg);
   }
   
   this.setRooms = function() // move this function to game.js

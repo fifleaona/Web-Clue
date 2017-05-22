@@ -17,6 +17,7 @@
     $file = explode('.', $filename);
     
 	print '<link rel="stylesheet" type="text/css" href="../css/style.css" />';
+	print '<link rel="stylesheet" type="text/css" href="../css/bootstrap/bootstrap.css" />';
     print '<link rel="stylesheet" type="text/css" href="../css/' . $file[0] . '.css" />';
 		
     // add option for dyslexie?
@@ -43,7 +44,7 @@
       <h2><span class="disney">Disney Princess</span> Edition</h2>
     </div>
 			
-    <nav>
+    <nav class="container-fluid">
       <a href="#" id="menuIcon"></a>
       
 	  <div id="links">
@@ -63,4 +64,4 @@
     </nav>
   </header>
 		
-  <section id="main">
+  <section id="mainDiv" class="container-fluid">
