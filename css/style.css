@@ -14,6 +14,8 @@ body
 {
 	background-color: #AB7F5F;
 	font-family: Body;
+	display: grid;
+	/*overflow: hidden;*/
 }
 
 h1
@@ -87,7 +89,7 @@ label
 .close
 {
 	position: fixed;
-	top:15%;
+	top:0;
 	right:0.5%;
 	font-size: 2em;
 }
@@ -99,8 +101,8 @@ label
 
 .modal
 {
-	position: absolute;
-	top: 15%;
+	position: fixed;
+	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
@@ -110,7 +112,7 @@ label
 	margin: 0;
 	display: none;
 	font-size: 1em;
-	overflow: hidden;
+	overflow: scroll;
 }
 
 .modal .btn
@@ -120,12 +122,13 @@ label
 
 #banner
 {
-	position: absolute;
+	grid-column: 1;
+	grid-row: 1;
 	background-color: #CB493F;
 	color: #EF8C85;
 	top: 0;
 	left: 0;
-	height: 15%;
 	width: 100%;
+	height: 90%;
 	overflow: hidden;
 }

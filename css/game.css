@@ -1,6 +1,28 @@
-body
-{
+
+/*@media only screen 
+and max-width(700px)
+and (-webkit-min-device-pixel-ratio: 2)
+{*/
+  body
+  {
 	/*overflow: hidden;*/
+	display: grid;
+    grid-template-areas: "S E"
+	                     "S C";
+  }
+/*}*/
+
+
+
+#banner
+{
+  display: none;
+}
+
+#known
+{
+  grid-area: S;
+  z-index: 99;
 }
 
 .adjustForKnown
@@ -21,6 +43,7 @@ body
 
 #playerView
 {
+  grid-area: C;
 }
 
 .characterPiece
@@ -32,7 +55,6 @@ body
 .known
 {
   position: absolute;
-  z-index: 100;
 }
 
 #knownCanvas
@@ -49,6 +71,15 @@ body
 {
   position: absolute;
   z-index: 3;
+}
+
+#boardWrapper
+{
+  margin: auto;
+  height: 100%;
+  width: 600px;
+  position: relative;
+  z-index: 1;
 }
 
 #p1piece, #p2piece, #p3piece,

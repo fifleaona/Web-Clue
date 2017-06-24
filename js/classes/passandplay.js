@@ -181,6 +181,7 @@ function Game(arr,numDie,squareSize)
 	{
 	  for(var j=0; j<this.players.length; j++)
 	  {
+		console.log('hi');
 	    if(!(this.spaces.node_list[index].edge_list[i].x == this.players[j].getPosition().x &&
 		   this.spaces.node_list[index].edge_list[i].y == this.players[j].getPosition().y))
 		{
