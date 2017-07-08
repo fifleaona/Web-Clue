@@ -5,6 +5,8 @@ function Piece(id,r,pos)
   this.radius = r;
   this.move = false;
   this.position = new Point(pos);
+  this.startPosition = new Point();
+  this.positionArr = [];
   
   this.updateRadius = function(r)
   {

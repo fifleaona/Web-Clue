@@ -23,19 +23,48 @@ function Card(name, filePath)
   {
     return this.filePath;
   }
+
+  this.getURL = function()
+  {
+    return this.filePath + this.name.toLowerCase() + '.png';
+  }
 }
 
-function Deck()
+function Deck(filePath)
 {
   this.crime = [];
   this.deck = [];
-  this.suspects = [];
+  this.suspects = [
+                    new Card("Ariel",filePath + 'suspects/'),
+                    new Card("Aurora",filePath + 'suspects/'),
+                    new Card("Belle",filePath + 'suspects/'),
+                    new Card("Jasmine",filePath + 'suspects/'),
+                    new Card("Pocahontas",filePath + 'suspects/'),
+                    new Card("Tiana",filePath + 'suspects/')
+                  ];
   //"Ariel", "Aurora", "Belle", 
    //                "Jasmine", "Pocahontas", "Tiana"];
-  this.rooms = [];
+  this.rooms = [
+                  new Card("Ballroom",filePath + 'rooms/'),
+                  new Card("Cave",filePath + 'rooms/'),
+                  new Card("Cottage",filePath + 'rooms/'),
+                  new Card("Forest",filePath + 'rooms/'),
+                  new Card("Garden",filePath + 'rooms/'),
+                  new Card("Grotto",filePath + 'rooms/'),
+                  new Card("Kitchen",filePath + 'rooms/'),
+                  new Card("Tent",filePath + 'rooms/'),
+                  new Card("Tower",filePath + 'rooms/')
+                ];
   // "Ballroom", "Cave", "Cottage", "Forest", "Garden",   
     //             "Grotto", "Kitchen", "Tent", "Tower"];
-  weapons = [];
+  this.weapons = [
+              new Card("Lamp",filePath + 'weapons/'),
+              new Card("Rose",filePath + 'weapons/'),
+              new Card("Spear",filePath + 'weapons/'),
+              new Card("Spindle",filePath + 'weapons/'),
+              new Card("Tiara",filePath + 'weapons/'),
+              new Card("Trident",filePath + 'weapons/')
+            ];
 //  "Lamp", "Rose", "Spear", 
   //                 "Spindle", "Tiara", "Trident"];
 	
@@ -143,9 +172,9 @@ function Deck()
 	}
   }
   
-  buildDeck = function(numTimesShuffles)
+  this.buildDeck = function(numTimesShuffles)
   {
-	if(this.suspects.length < 6 || this.rooms.length < 9 || this.weapons.lenght < 6)
+	if(this.suspects.length < 6 || this.rooms.length < 9 || this.weapons.length < 6)
 	{
 	}
 	else
@@ -200,9 +229,9 @@ function Deck()
       // shuffle the deck
       // use Fisher-Yates algorithm 
       var swap, swapIndex, holder, index; 
-      for(var cntr=0; cntr<numTimesDeckShuffles; cntr++)
+      for(var cntr=0; cntr<numTimesShuffles; cntr++)
       {
-        index = deck.length;
+        index = this.deck.length;
         while(--index)
         {
           // get a random element
@@ -219,27 +248,25 @@ function Deck()
     }
   }
 	
-  dealCards = function(playerArr)
+  this.dealCards = function(playerArr)
   {
     if(this.crime.length==0)
 	{
 	  // do nothing
-      console.log("ERROR: buildDeck must be called first");
+      this.buildDeck(5);
 	}
-	else
+	
+    var j=0;
+	for(var i=0; i<this.deck.length; i++)
 	{
-	  var j=0;
-	  for(var i=0; i<deck.length; i++)
+	  playerArr[j].addCard(this.deck[i]);
+      if(j==(playerArr.length-1))
 	  {
-	    playerArr[j].addCard(deck[i]);
-		if(j==(playerArr.length-1))
-		{
-		  j=0;
-		}
-		else
-        {
-          j++;
-        }
+	    j=0;
+	  }
+	  else
+      {
+        j++;
       }
     }
   }

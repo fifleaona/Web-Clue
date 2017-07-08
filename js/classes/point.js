@@ -1,6 +1,6 @@
 function Point(x1, y1)
 {
-  if(x1!=undefined && y1!=undefined)
+  if(x1==undefined && y1==undefined)
   {
     this.x = x1;
 	this.y = y1;
@@ -12,8 +12,8 @@ function Point(x1, y1)
   }
   else
   {
-    this.x = 0;
-	this.y = 0;
+    this.x = x1;
+	this.y = y1;
   }
   
   this.updatePoint = function(newX,newY)

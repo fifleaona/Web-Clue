@@ -3,6 +3,7 @@ function Dice(num)
   this.sides = [1,2,3,4,5,6];
   this.numDice = num;
   this.currentRoll = 0;
+  var scope = this;
   
   this.roll = function()
   {
@@ -10,6 +11,7 @@ function Dice(num)
     for(var i = 0; i< this.numDice; i++)
 	{
 	  this.currentRoll += this.sides.randomElement();
+      console.log(this.currentRoll + ":)")
 	}
   }
   
@@ -26,6 +28,5 @@ function Dice(num)
   this.getVal = function()
   {
     return this.currentRoll;
-	console.log(this.currentRoll);
   }
 }
