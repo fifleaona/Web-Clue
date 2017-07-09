@@ -3,26 +3,42 @@
 and max-width(700px)
 and (-webkit-min-device-pixel-ratio: 2)
 {*/
-  body
+  /*body
   {
-	/*overflow: hidden;*/
-	display: grid;
-    grid-template-areas: "S E"
-	                     "S C";
+	/*overflow: hidden;
+    grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr fr;
+	margin: auto;
   }
 /*}*/
 
+#handWrapper
+{
+  width: 100%;
+  height: 150px;
+}
 
+#boardWrapper
+{
+  /*margin: auto;
+  height: 100%;
+  width: 600px;
+  z-index: 1;*/
+  width: 600px;
+}
+
+#knownWrapper
+{
+}
+
+.innerWrapper
+{
+  position: relative;
+}
 
 #banner
 {
   display: none;
-}
-
-#known
-{
-  grid-area: S;
-  z-index: 99;
 }
 
 .adjustForKnown
@@ -41,20 +57,16 @@ and (-webkit-min-device-pixel-ratio: 2)
 	width: 100%;
 }
 
-#playerView
-{
-  grid-area: C;
-}
-
 .characterPiece
 {
   position: absolute;
-  z-index: 1;
+  z-index: 78;
 }
 
 .known
 {
   position: absolute;
+  z-index: 81;
 }
 
 #knownCanvas
@@ -70,22 +82,15 @@ and (-webkit-min-device-pixel-ratio: 2)
 #spaces
 {
   position: absolute;
-  z-index: 3;
-}
-
-#boardWrapper
-{
-  margin: auto;
-  height: 100%;
-  width: 600px;
-  position: relative;
-  z-index: 1;
+  z-index: 79;
 }
 
 #p1piece, #p2piece, #p3piece,
 #p4piece, #p5piece, #p6piece,
 #p1known, #p2known, #p3known,
-#p4known, #p5known, #p6known
+#p4known, #p5known, #p6known,
+#p1hand, #p2hand, #p3hand,
+#p4hand, #p5hand, #p6hand
 {
   display: none;
 }

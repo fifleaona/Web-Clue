@@ -8,6 +8,7 @@ function Player(name, character, num, radius)
   this.playerName = name;
   this.hand = [];
   this.accused = false;
+  this.accusedBy = '';
   this.secretPassage = false;
   this.active = false;
   
@@ -51,7 +52,7 @@ function Player(name, character, num, radius)
   };
 	
   // TOGGLE FUNCTIONS
-  this.toggleAccused = function()
+  this.toggleAccused = function(playerName)
   {
     if(this.accused == true)
     {
@@ -60,6 +61,7 @@ function Player(name, character, num, radius)
     else
     {
       this.accused = true;
+      this.accusedBy = playerName;
     }
   };
 	
@@ -81,14 +83,16 @@ function Player(name, character, num, radius)
   };
 	
   // DRAWING FUNCTIONS
-  this.showHand = function(div)
+  this.showHand = function()
   {	
+    document.getElementById(this.divBase+'hand').style.display = "block";
+
     for( var i=0; i<this.hand.length; i++)
     {
-      img = $('<img class="card" />').attr('src',this.hand[i].getFilepath());
+      img = $('<img class="card" />').attr('src',this.hand[i].getURL());
 	  
       // print the card out
-      $(div).append(img);
+      $('#' + this.divBase + 'hand .cards').append(img);
     }
   };
   
@@ -128,7 +132,7 @@ function Player(name, character, num, radius)
 	  //this.known = new Canvas(this.divBase+'known');
 	  //this.known.canvas.width = 100;
 	  //this.known.canvas.height = 100;
-	  
+	  this.known = new Known(this.divBase+'known');
 	}
 	else
 	{
@@ -143,6 +147,7 @@ function Player(name, character, num, radius)
   
   this.updatePosition = function(point)
   {
+    this.piece.positionArr.push(point);
     this.piece.position.updatePoint(point);
   }
   
@@ -151,8 +156,20 @@ function Player(name, character, num, radius)
     this.piece.canvas.drawFilledSquare(pos, modifier);
   }
   
-  this.hideKnown = function()
+  this.hideDivs = function()
   {
     document.getElementById(this.divBase+'known').style.display="none";
+    document.getElementById(this.divBase+'hand').style.display="none";
+  }
+
+  this.addStartPosition = function()
+  {
+    this.piece.startPosition.updatePoint(this.piece.position);
+    this.piece.positionArr.push(this.piece.position);
+  }
+
+  this.getPastSpaces = function()
+  {
+     return this.piece.positionArr;
   }
 }

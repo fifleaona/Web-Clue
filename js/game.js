@@ -1,10 +1,3 @@
-function printCard(div, folder, name)
-{
-  var appendStart = '<img src="../';
-  var appendEnd = '.png" />';
-  $(div).append(appendStart + folder + '/' + name.toLowerCase() + appendEnd);
-}
-
 function addSpaces(game)
 {
 	game.addSpace(new Point(1,6), new Point(2,6));
@@ -283,6 +276,7 @@ function addSpaces(game)
 	game.addSpace(new Point(17,21), new Point(17,22));
 	game.addSpace(new Point(17,22), new Point(18,22));
 	game.addSpace(new Point(17,22), new Point(17,23));
+	game.addSpace(new Point(17,23), new Point(17,24));
 	
 	// x = 18
 	game.addSpace(new Point(18,7), "Tower");
@@ -301,6 +295,8 @@ function addSpaces(game)
 	game.addSpace(new Point(18,18), new Point(19,18));
 	game.addSpace(new Point(18,19), new Point(18,20));
 	game.addSpace(new Point(18,20), new Point(18,21));
+	game.addSpace(new Point(18,21), new Point(18,22));
+	game.addSpace(new Point(18,22), new Point(18,23));
 	
 	// x = 19
 	game.addSpace(new Point(19,7), new Point(20,7));
@@ -371,17 +367,29 @@ $(function()
   var gameObj;
   var playerInfo = [{"playerNum":1,"playerName":"Fiona","charName":"belle"},
                {"playerNum":2,"playerName":"Michelle","charName":"jasmine"},
-			   {"playerNum":3,"playerName":"Adam","charName":"aurora"},
-			   {"playerNum":4,"playerName":"Joe","charName":"pocahontas"},
-			   {"playerNum":5,"playerName":"Naomi","charName":"ariel"},
-			   {"playerNum":6,"playerName":"Valentine","charName":"tiana"}];
+			   {"playerNum":3,"playerName":"Adam","charName":"aurora"}]
+			  // {"playerNum":4,"playerName":"Joe","charName":"pocahontas"},
+			   //{"playerNum":5,"playerName":"Naomi","charName":"ariel"},
+			   //{"playerNum":6,"playerName":"Valentine","charName":"tiana"}];
+  var playerInfo = $.ajax({
+    url: 'data.php',
+    dataType: 'json',
+    async: false
+  }).responseText;
+
+  playerInfo = $.parseJSON(playerInfo);
   
   gameObj = new Game(playerInfo,1,25);
-  
-  addSpaces(gameObj);
-  gameObj.setBkgs('../imgs/foundation.png','../imgs/score_card.jpg');
-  gameObj.setGame();
-  gameObj.takeTurn(2);
+  var boardImg = new Image();
+  var knownImg = new Image();
+  boardImg.src = '../imgs/foundation.png';
+  boardImg.onload = function()
+  {
+    gameObj.setBkgs(boardImg,'../imgs/score_card.jpg');
+	gameObj.setGame();
+	addSpaces(gameObj);
+	gameObj.showReadyScreen(0);
+  }
   
   //gameObj.getHand(2);
   // put toggle values here

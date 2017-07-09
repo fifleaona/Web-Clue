@@ -16,9 +16,20 @@
     $filename = basename($_SERVER['PHP_SELF']);
     $file = explode('.', $filename);
     
-	print '<link rel="stylesheet" type="text/css" href="../css/style.css" />';
-    print '<link rel="stylesheet" type="text/css" href="../css/' . $file[0] . '.css" />';
-		
+	if($file[0]=='index')
+	{
+	  print '<link rel="stylesheet" type="text/css" href="css/style.css" />';
+	  print '<link rel="stylesheet" type="text/css" href="css/index.css" />';
+	  print '<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />';
+	  print '<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />';
+	}
+	else
+	{
+	  print '<link rel="stylesheet" type="text/css" href="../css/style.css" />';
+	  print '<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />';
+	  print '<link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css" />';
+      print '<link rel="stylesheet" type="text/css" href="../css/' . $file[0] . '.css" />';
+	}
     // add option for dyslexie?
   ?>
 		
@@ -37,13 +48,13 @@
 </head>
 	
 <body>
-  <header id="banner">
+  <header id="banner" class="container-fluid">
     <div id="logo">
-      <h1>Clue:</h1> <br />
+      <h1>Clue:</h1>
       <h2><span class="disney">Disney Princess</span> Edition</h2>
     </div>
 			
-    <nav class="container-fluid">
+    <nav>
       <a href="#" id="menuIcon"></a>
       
 	  <div id="links">
@@ -63,4 +74,4 @@
     </nav>
   </header>
 		
-  <section id="mainDiv" class="container-fluid">
+  <section id="mainDiv">

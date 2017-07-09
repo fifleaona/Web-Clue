@@ -8,9 +8,10 @@ function Game(arr,numDie,squareSize)
   this.spaceCanvas = new Canvas('spaces');
   this.spaces = new Graph();
   this.rooms = [];
+  this.accusedDiv = '';
   
   // card init
-  this.deck = new Deck();
+  this.deck = new Deck('../imgs/');
   
   // player init
   this.players = [];
@@ -23,13 +24,13 @@ function Game(arr,numDie,squareSize)
   this.dice = new Dice(numDie);
   this.lastPlayersActions = "";
   this.spaceSelection = false;
-  this.activePlayer = 0;
+  this.activePlayer = -1;
   var scope = this;
   
   // SET FUNCTIONS
   this.setGame = function() // change so much of this
   {
-    //this.deck.dealCards(this.players);
+    this.deck.dealCards(this.players);
 	// set up game board:
 	// --- board background
 	
@@ -42,20 +43,14 @@ function Game(arr,numDie,squareSize)
   }
   
   this.setBkgs = function(boardBkg, knownBkg)
-  {
-    var boardImg = new Image();
-	boardImg.src = boardBkg;
-	
-	boardImg.onload = function()
+  {  
+    for(var i=0; i<scope.players.length; i++)
 	{
-	  for(var i=0; i<scope.players.length; i++)
-	  {
-	    scope.players[i].assignDiv(i, boardImg.width, boardImg.height);
-	    scope.players[i].drawPiece();
-	  }
+	  scope.players[i].assignDiv(i, boardBkg.width, boardBkg.height);
+	  scope.players[i].drawPiece();
 	}
 	
-	this.board.setImg(boardBkg);
+	this.board.setImg(boardBkg.src);
 	this.known.setImg(knownBkg);
   }
   
@@ -82,25 +77,6 @@ function Game(arr,numDie,squareSize)
   }
   
   // GET FUNCTIONS
-  this.getCrime = function()
-  {
-    return this.deck.crime;
-  }
-  
-  this.getPlayerCharacter = function(num)
-  {
-    return this.players[num-1].character;
-  }
-  
-  this.getPlayerName = function(num)
-  {
-    return this.player[num-1].playerName;
-  }
-  
-  this.getPlayerHand = function(num)
-  {
-    this.players[num-1].showHand(this.deck);
-  }
   
   // APPEND FUNCTIONS
   this.addSpace = function(node1, node2) // move this function to game.js
@@ -125,9 +101,39 @@ function Game(arr,numDie,squareSize)
     }
   }
   
-  this.takeTurn = function(num) // move out of this scope
+  this.showOptionsDiv = function()
   {
-    this.activePlayer = num-1;
+    $('#turnOptions').show();
+    
+    // if player was accused, show accused div & btn
+    if(this.players[this.activePlayer].accused)
+    {
+      $('#wasAccused').show();
+      $('#makeAccusation').show();
+      $('#accusor').text(this.players[this.activePlayer].accusedBy);
+      //$('#accusedRoom').text(); // set to current room location
+    }
+
+    // if the current room has a secret passage
+    //if()
+    //{
+    //  $('#secretPassage').show();
+    //  $('#takeSecretPassage').show();
+    //  $('#').text(); // set to current room 
+    //}
+
+    if(this.dice.numDice <= 1)
+    {
+      $('#dieVSdice').text('die');
+    }
+    else
+    {
+      $('#dieVSdice').text('dice')
+    }
+  }
+
+  this.takeTurn = function() // move out of this scope
+  {
 	// display last player's actions
     // display player's known list
 	this.players[this.activePlayer].showKnown();
@@ -135,43 +141,29 @@ function Game(arr,numDie,squareSize)
 	// display player's hand
 	this.players[this.activePlayer].showHand();
 	
-	// if player is accused
-    if(this.players[this.activePlayer].accused)
-	{
-	  // set accused to false
-	  this.players[this.activePlayer].toggleAccused();
-	  // ask if the player would like to make an accusation
-	  // display ask question screen
-    }
-	else
-	{
-	  // otherwise, continue the turn as usual
-  	  // if player is in a room with a secret door
-	  if(this.players[this.activePlayer].secretPassage)
-	  {
-		// set secretPassage to false
-		this.players[this.activePlayer].toggleSecretPassage();
-	    // display "would you like to use the secret door to [room]"
-	  }
-	  else
-	  {
-  	    // otherewise, show a screen with a die roll
-	    //$('#rollDie').show();
-	  
-	    // once the die is rolled, display possible spaces
-	   // $('#confirmRoll').click(function()
-	    //{
-		 this.dice.roll();
-		 console.log(this.dice.getVal());
-		  // display numSpaces somewhere on the screen
-		  // execute show spaces
-	    //});
-		this.spaces.node_list[this.spaces.findNode(this.players[this.activePlayer].getPosition())].touched = true;
-		this.showSpaces(this.players[this.activePlayer].getPosition());
-	  }
-	}
+    // display option screen
+    this.showOptionsDiv();
+    this.players[this.activePlayer].addStartPosition();
+
+	
+	this.spaces.node_list[this.spaces.findNode(this.players[this.activePlayer].getPosition())].touched = true;
+    this.showSpaces(this.players[this.activePlayer].getPosition());
+
   }
   
+  this.endTurn = function()
+  {
+    // display end turn confirmation
+    $('#confirmTurn').show();
+  }
+
+  this.showReadyScreen = function(playerNum)
+  {
+    this.activePlayer = playerNum;
+    $('#pass').slideToggle();
+    $('#playerName').text(this.players[this.activePlayer].playerName);
+  }
+
   this.showSpaces = function(pos)
   {
     this.spaceSelection = true;
@@ -181,7 +173,6 @@ function Game(arr,numDie,squareSize)
 	{
 	  for(var j=0; j<this.players.length; j++)
 	  {
-		console.log('hi');
 	    if(!(this.spaces.node_list[index].edge_list[i].x == this.players[j].getPosition().x &&
 		   this.spaces.node_list[index].edge_list[i].y == this.players[j].getPosition().y))
 		{
@@ -194,6 +185,18 @@ function Game(arr,numDie,squareSize)
 	}
   }
   
+  this.showPastSpaces = function()
+  {
+    this.spaceSelection = true;
+    var arr = this.players[this.activePlayer].getPastSpaces();
+    for(var i=0; i<arr.length; i++)
+    {
+      this.players[this.activePlayer].highlightSquare(arr[i],this.tileSize);
+      var loc = this.spaces.findNode(arr[i]);
+      this.spaces.node_list[loc].highlighted=true;
+    }
+  }
+ 
   this.hideSpaces = function(pos)
   {
     var index = this.spaces.findNode(pos);
@@ -232,7 +235,7 @@ function Game(arr,numDie,squareSize)
 	  this.spaces.node_list[this.spaces.findNode(this.players[this.activePlayer].getPosition())].touched = false;
 	  this.dice.increment();
 	}
-	  
+	console.log(this.dice.getVal())  
 	// move player
 	this.players[this.activePlayer].updatePosition(loc);
     this.players[this.activePlayer].drawPiece();
@@ -263,7 +266,52 @@ function Game(arr,numDie,squareSize)
 		  // call select space
 		  scope.showSpaces(tempPt);
 		}
+        else
+        {
+          scope.endTurn();
+        }
 	  }
 	}
+  });
+
+  $('#pass .btn').click(function()
+  {
+    $('#pass').slideToggle();
+    scope.takeTurn();
+  });
+
+  // if end turn: yes is clicked
+  $('#endTurnYes').click(function()
+  {
+    // hide currentPlayer known
+    // hide currentPlayer hand
+    scope.players[scope.activePlayer].hideDivs();
+    $('#confirmTurn').slideToggle();
+    // increment currentPlayer
+    if(scope.activePlayer+1==scope.players.length)
+    {
+      scope.showReadyScreen(0);
+    }
+    else
+    {
+      scope.showReadyScreen(scope.activePlayer+1);
+    }
+  });
+
+  // if end turn: no is clicked
+  $('#endTurnNo').click(function()
+  {
+    $('#confirmTurn').slideToggle();
+    // if no
+    scope.showPastSpaces();
+    // set spaceSelection to true
+    // move piece back to start
+  });
+
+  $('#rollForTurn').click(function()
+  {
+    scope.dice.roll();
+    $('#turnOptions').slideToggle(0);
+    $('.absoluteWrapper').slideToggle(0);
   });
 }

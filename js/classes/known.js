@@ -60,7 +60,7 @@ function Known(id)
 	this.paint = true;
 	this.redraw();
   }
-  
+
   this.canvas.canvas.addEventListener("mouseleave", function(e)
   {
     scope.paint = false;

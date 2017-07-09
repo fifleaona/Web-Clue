@@ -123,17 +123,16 @@ function Canvas(id)
   
   this.convertClick = function(e, type, squareSize)
   {
-	var newPoint = null;
-	
+    var newPoint = null;
 	if(e==null)
 	{
 	  console.log("Error: Must pass click event")
     }
 	else
 	{
-      var newX = e.pageX - this.canvas.offsetLeft;
-	  var newY = e.pageY - this.canvas.offsetTop;
-	
+      var newX = e.pageX - $("#" + this.canvasId).offset().left;
+	  var newY = e.pageY - $("#" + this.canvasId).offset().top;
+	  // 'raw' used for drawing
 	  if(type=='raw' || type=='RAW' || type=='Raw')
 	  {
 	    newPoint = new Point(newX, newY);
