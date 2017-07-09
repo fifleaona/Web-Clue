@@ -1,21 +1,30 @@
-  </section>
+</section>
 	
-  <footer>
-  </footer>
+<footer>
+</footer>
 	
-  <!--[if lt IE 9]>
-    <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+<!--[if lt IE 9]>
+  <script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
 	
-  <?php
+<?php
+  if($file[0]=='index')
+  {
+    print '<script type="text/javascript" src="js/jquery-1.11.3.js"></script>';
+    print '<script type="text/javascript" src="js/bootstrap.min.js"></script>';
+    print '<script type="text/javascript" src="js/index.js"></script>';
+  }
+  else
+  {
     print '<script type="text/javascript" src="../js/jquery-1.11.3.js"></script>';
-	print '<script type="text/javascript" src="../js/jquery-ui.js"></script>';
+    print '<script type="text/javascript" src="../js/bootstrap.min.js"></script>';
+  }
 	  
-	  switch($file[0])
+  switch($file[0])
+  {
+    case 'index':
+      if($_SERVER['REQUEST_METHOD'] == 'POST')
 	  {
-	    case 'index':
-		  if($_SERVER['REQUEST_METHOD'] == 'POST')
-		  {
             if(empty($_POST['nPlayers']) || empty($_POST['gameID']))
             {
               if(!empty($_POST['submitGameID']))
@@ -48,7 +57,11 @@
 		 // print '<script type="text/javascript"> var gameObj = new Game(' . $_SESSION['players'] . ') </script>';
 		break;
 		}
-	  print '<script type="text/javascript" src="../js/' . $file[0] . '.js"></script>';
+		
+	  if($file[0]!='index')
+	  {
+	    print '<script type="text/javascript" src="../js/' . $file[0] . '.js"></script>';
+	  }
 		
 	?>
   </body>	

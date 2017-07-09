@@ -2,15 +2,15 @@
 	// define title: define('TITLE', '...');
 	
 	// include header file
-	include('../templates/header.html');
-	include('../templates/functions.php');
+	include('templates/header.html');
+	include('templates/functions.php');
 	
 	// header files contains nav element
 	$problem = false;
 ?>
 
 <div id="newGame">
-  <input type="button" id="newGameBtn" name="newGameBtn" class="btn" value="Start New Game" />
+  <input type="button" class="btn" data-toggle="modal" data-target="#startGame" id="newGameBtn" name="newGameBtn" value="Start New Game" />
 </div>
 	
 <div id="joinGameBtn">
@@ -21,15 +21,21 @@
   <input type="button" id="rulesBtn" name="rulesBtn" class="btn" value="Rules" />
 </div>
 	
-<div id="startGame" class="modal">
-  <div class="close" id="startGameClose">
-    <a href="#">X</a>
-  </div>
-
-  <div>
-    <input type="button" id="passGameBtn" name="passGameBtn" class="btn" value="Pass and Play" />
-    <br /><br />
-    <input type="button" id="onlineGameBtn" name="onlineGameBtn" class="btn" value="Start a Room" />
+<div id="startGame" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal">
+		<h4 class="modal-title" id="myModalLabel">Title</h4>
+	  </div>
+	  <div class="modal-body">
+	    <input type="button" class="btn" id="passGameBtn" name="passGameBtn" value="Pass & Play" />
+		<input type="button" class="btn" id="onlineGameBtn" name="onlineGameBtn" value="Start a Room" />
+	  </div>
+	  <div class="modal-footer">
+	    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	  </div>
+	</div>
   </div>
 </div>
 	
@@ -87,6 +93,6 @@
 	</div>
 	
 <?php
-	include('../templates/rules.html');
-	include('../templates/footer.html');
+	include('templates/rules.html');
+	include('templates/footer.html');
 ?>
