@@ -22,7 +22,11 @@ $(function()
   var appendEnd = '" />';
 	
   // get player name - open name window
-  $('#getPlayerName').slideToggle();
+  $('#getPlayerName').modal('show');
+  $('#pNameSubmit').click(function()
+  {
+    $('#getPlayerName').modal('hide');
+  });
 	
   // when submit button is pressed
   $('#pNameSubmit').click(function()
@@ -37,15 +41,9 @@ $(function()
     {
       // store the name
       pName = $('#playerName').val();
-			
-      // close name window
-      $('#getPlayerName').toggle();
-			
+				
       // display name
-      $('#plyrNameConfirm').html(pName);
-      
-      // open confirmation window
-      $('#playerNameConfirm').toggle();
+      $('#plyrNameConfirm').html(pName);   
     }
   });
 		
@@ -53,31 +51,16 @@ $(function()
   // yes is pressed
   $('#playerNameConfirmY').click(function()
   {
-    // close confirmation window
-    $('#playerNameConfirm').toggle();
-		
-    // open selectChar window
-    $('#selectChar').toggle();
-		
-    // update name
+	// update name
     $('#pName').html(pName);
 		
     appendName = appendName + pName + appendEnd;
   });
 	
-  // no is pressed
-  $('#playerNameConfirmN').click(function()
-  {
-    // close confirmation window
-    $('#playerNameConfirm').toggle();
-    
-	// open get name window
-    $('#getPlayerName').toggle();
-  });
-	
   // when an icon with the character select class is pressed
   $('.selectChar').click(function()
   {
+	console.log('hi')
     // check classes
     if( $(this).attr('class').split(' ')[1] == 'taken')
     {
@@ -89,23 +72,8 @@ $(function()
       // get character name
       charName = $(this).attr('name');
 		
-      // update image URL
-      imgStr = startImgURL + charName + endImgURL;
-		
-      // update image tag & display image
-      img = $('<img class="leftalign" />').attr('src', imgStr).on('load', function()
-      {
-        $('#charImg').append(img);
-      });
-		
       // update name
       $('#charName').html(charName.capitalizeFirstLetter());
-		
-      // close selectChar window
-      $('#selectChar').toggle();
-		
-      // open confirmation window
-      $('#characterConfirm').toggle();
     }
   });
   // on char confirm window:
@@ -117,15 +85,5 @@ $(function()
     appendChar = appendChar + charName + appendEnd;
     $('#getChar').append(appendName);
     $('#getChar').append(appendChar);
-  });
-	
-  // no is pressed
-  $('#charConfirmN').click(function()
-  {
-    // close confirmation window
-    $('#characterConfirm').toggle();
-    
-	// open selectChar window
-    $('#selectChar').toggle();
   });
 });

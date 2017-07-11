@@ -1,34 +1,4 @@
-/*#buttons
+#buttonGroup
 {
-	position: absolute;
-	top: 20%;
-	left: 0%;
-	width: 100%;
-	display: block;
-}*/
-
-body
-{
-  grid-template-columns: 1fr;
-  grid-template-rows: auto .5fr 1fr 1fr 1fr;
-  margin: auto;
-}
-
-
-#newGame
-{
-  grid-column: 1;
-  grid-row: 3;
-}
-
-#joinGame
-{
-  grid-column: 1;
-  grid-row: 4;
-}
-
-#rules
-{
-  grid-column: 1;
-  grid-row:5;
+  width: 100%;
 }

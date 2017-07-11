@@ -8,17 +8,39 @@
   // header files contains nav element
   // ends with <section id="main">
 ?>
-  <div id="pass" class="modal">
+
+<section id="menu">
+  <canvas id="knownCanvas"></canvas>
+  <canvas id="p1known" class="known"></canvas>
+  <canvas id="p2known" class="known"></canvas>
+  <canvas id="p3known" class="known"></canvas>
+  <canvas id="p4known" class="known"></canvas>
+  <canvas id="p5known" class="known"></canvas>
+  <canvas id="p6known" class="known"></canvas>
+</section>
+
+<main id="panel">
+  <header>
+    <button class="toggle-button">☰</button>
+  </header>
+
+  <div id="pass" class="modal" tabindex="-1" role="dialog" aria-labelledby="passLabel">
+    <div class="modal-dialog" role="document">
+	  <div class="modal-content">
+	    <div class="modal-header">
+		  <h4 class="modal-title" id="passLabel">Pass to <span id="playerName"></span></h4>
+		</div>
+		<div class="modal-body">
+		  Alright! <span id="playerName"></span>, are you ready to start your turn?
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Let's go!</button>
+		</div>
+	  </div>
+	</div>
     <!--Full screen, hides list & cards from other players -->
-    <div class="words">
-      Hello <span id="playerName"></span>! Are you ready to start your turn?
-    </div>
-    <div class="buttons">
-      <input type="button" class="btn" value="Let's go!" />
-    </div>
   </div>
 
-  <div class="absoluteWrapper">
   <div id="turnOptions" class="popup">
     <div id="wasAccused" class="words hidden">
       You were accused by <span id="accusor"></span> and now you're in <span id="accusedRoom"></span>. You can make an accusation.
@@ -37,20 +59,6 @@
       <input type="button" value="Take Secret Passage" id="takeSecretPassage" class="btn hidden" />
       <input type="button" value="Roll" id="rollForTurn" class="btn" />
     </div>
-  </div>
-</div>
-
-  <div id="knownWrapper" class="right">
-    <!-- Canvas element -->
-	<div class="innerWrapper">
-      <canvas id="knownCanvas"></canvas>
-      <canvas id="p1known" class="known"></canvas>
-      <canvas id="p2known" class="known"></canvas>
-      <canvas id="p3known" class="known"></canvas>
-      <canvas id="p4known" class="known"></canvas>
-      <canvas id="p5known" class="known"></canvas>
-      <canvas id="p6known" class="known"></canvas>
-	</div>
   </div>
   
   <div id="boardWrapper" class="center">
@@ -152,6 +160,8 @@
       <input type="button" value="No" id="endTurnNo" />
     </div>
   </div>
+  
+</main>
 <?php
   // give info to javascript file
   

@@ -55,32 +55,33 @@
   
   $taken = false;
 ?>
-  <div id="selectChar" class="modal">
-    <div id="welcome">
-      <h3>Welcome to the game, <span id="pName"></span>! Please select your character.</h3>
-    </div>
+
+<div id="selectChar" class="col-xs-12">
+  <div id="welcome">
+    <h3>Welcome to the game, <span id="pName"></span>! Please select your character.</h3>
+  </div>
 		
-    <?php
-      for($cntr=1; $cntr<=6; $cntr++)
-      {
-        $class = 'selectChar';
-        switch($cntr)
-        {
-          case 1:
-            $name = 'ariel';
-          break;
+  <?php
+    for($cntr=1; $cntr<=6; $cntr++)
+    {
+      $class = 'selectChar';
+       switch($cntr)
+       {
+         case 1:
+           $name = 'ariel';
+         break;
 		
-          case 2:
-            $name = 'aurora';
-          break;
+         case 2:
+           $name = 'aurora';
+         break;
 		
-          case 3:
-            $name = 'belle';
-          break;
+         case 3:
+           $name = 'belle';
+         break;
 		
-          case 4:
-            $name = 'jasmine';
-          break;
+         case 4:
+           $name = 'jasmine';
+         break;
         
 		  case 5:
             $name = 'pocahontas';
@@ -97,42 +98,60 @@
         }
 				
         print '<p class="selectCharP">';
-        print '<img src="../imgs/selection/' . $name . '.png" id="' . $name . 'Select" name="' . $name . '" class="' . $class . '" />';
+        print '<img src="../imgs/selection/' . $name . '.png" id="' . $name . 'Select" name="' . $name . '" class="' . $class . '" data-toggle="modal" data-target="#characterConfirm"/>';
         print '</p>';
       }
     ?>
-  </div>
+</div>
 
-  <div id="getPlayerName" class="modal">
-    <h3>Welcome player <span id="pNum">
-      <?php
-        print $_SESSION['cntr'];
-      ?>
-      </span>!</h3>
-      <label for="playerName">What is your name?</label>
-      <input type="text" id="playerName" name="playerName" />
-      <input type="button" id="pNameSubmit" name="pNameSubmit" class="btn" value="Submit"/>
+<div id="getPlayerName" class="modal" tabindex="-1" role="dialog" aria-labelledby="getNameLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+	  <div class="modal-header">
+	    <h4 id="getNameLabel">Welcome Player <?php print $_SESSION['cntr'] ?></h4>
+	  </div>
+	  <div class="modal-body">
+	    <label for="playerName">What do you go by?</label>
+		<input type="text" class="form-control" id="playerName" name="playerName" />
+		<input type="button" class="btn" data-toggle="modal" data-target="#playerNameConfirm" id="pNameSubmit" name="pNameSubmit" value="Submit" />
+	  </div>
+	</div>
   </div>
+</div>
 	
-  <div id="playerNameConfirm" class="modal">
-    <label for="playerNameConfirmY">You said your name is <span id="plyrNameConfirm"></span>. 
-       Is this correct?</label>
-    <input type="button" id="playerNameConfirmY" name="playerConfirmY" class="btn YN" value="Yes" />
-    <input type="button" id="playerNameConfirmN" name="playerConfirmN" class= "btn YN" value="No" />
+<div id="playerNameConfirm" class="modal" tabindex="-1" role="dialog" aria-labelledby="confirmName">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+	  <div class="modal-header">
+	    <h4 id="confirmName">Just to confirm...</h4>
+	  </div>
+	  <div class="modal-body">
+	    <form>
+		  <label for="playerNameConfirm">You'll go by <span id="plyrNameConfirm"></span>, cool?</label>
+		  <input type="button" data-dismiss="modal" id="playerNameConfirmY" name="playerNameConfirmY" class="btn YN" value="Yes" />
+		  <input type="button" data-toggle="modal" data-target="#getPlayerName" id="playerNameConfirmN" name="playerNameConfirmN" class="btn YN" value="No" />
+		</form>
+	  </div>
+	</div>
   </div>
+</div>
 	
-  <div id="characterConfirm" class="modal">
-    <span id="charImg"></span>
-    <form id="getChar">
-      <label>You chose <span id="charName"></span>. Is that correct?</label>
-      <br /><br />
-      
-	  <input type="submit" id="charConfirmY" name="charConfirmY" class="btn YN" value="Yes" />
-      <br /><br />
-      
-	  <input type="button" id="charConfirmN" name="charConfirmN" class="btn YN" value="No" />
-    </form>
+<div id="characterConfirm" class="modal" tabindex="-1" role="dialog" aria-labelledby="confirmChar">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+	  <div class="modal-header">
+	    <h4 id="confirmChar">Just to confirm...</h4>
+	  </div>
+	  <div class="modal-content">
+	    <form id="getChar">
+		  <label for="charConfirmY">You'd like to be <span id="charName"></span> this game?</label>
+		  <input type="submit" id="charConfirmY" name="charConfirmY" class="btn YN" vaue="Yes" />
+		  <input type="button" data-dimiss="modal" id="charConfirmN" name="charConfirmN" class="btn YN" vaue="No" />
+		</form>
+	  </div>
+	</div>
   </div>
+</div>
 
 <?php
   include('../templates/footer.html')

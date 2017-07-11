@@ -365,6 +365,12 @@ $(function()
 { 
   // initialize game object
   var gameObj;
+  var slideout = new Slideout({
+    'panel': document.getElementById('panel'),
+	'menu': document.getElementById('menu'),
+	'padding': 256,
+	'tolerance': 70
+  });
   var playerInfo = [{"playerNum":1,"playerName":"Fiona","charName":"belle"},
                {"playerNum":2,"playerName":"Michelle","charName":"jasmine"},
 			   {"playerNum":3,"playerName":"Adam","charName":"aurora"}]
@@ -377,6 +383,10 @@ $(function()
     async: false
   }).responseText;
 
+  
+  document.querySelector('.toggle-button').addEventListener('click',function(){
+    slideout.toggle();
+  })
   playerInfo = $.parseJSON(playerInfo);
   
   gameObj = new Game(playerInfo,1,25);

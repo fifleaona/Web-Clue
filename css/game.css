@@ -27,15 +27,6 @@ and (-webkit-min-device-pixel-ratio: 2)
   width: 600px;
 }
 
-#knownWrapper
-{
-}
-
-.innerWrapper
-{
-  position: relative;
-}
-
 #banner
 {
   display: none;
@@ -65,13 +56,17 @@ and (-webkit-min-device-pixel-ratio: 2)
 
 .known
 {
-  position: absolute;
+  position: absolute; 
+  top: 0;
+  left: 0;
   z-index: 81;
 }
 
 #knownCanvas
 {
   position: absolute;
+  top: 0;
+  left: 0;
 }
 
 #boardCanvas
