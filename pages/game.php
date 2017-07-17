@@ -43,11 +43,11 @@
 
   <div id="turnOptions" class="popup">
     <div id="wasAccused" class="words hidden">
-      You were accused by <span id="accusor"></span> and now you're in <span id="accusedRoom"></span>. You can make an accusation.
+      You were suggested by <span id="accusor"></span> and now you're in <span id="accusedRoom"></span>. You can make a suggestion and/or an accusation.
     </div>
 
     <div id="secretPassage" class="words hidden">
-      There is a secret passage to <span id="secretPassageRoom"></span>! You can take the secret passage.
+      There is a secret passage to <span class="secretPassageRoom"></span>! You choose to take the secret passage instead of rolling. When you enter <span class="secretPassageRoom"></span>, you'll be able to make a suggestion and/or accusation.
     </div>
 
     <div id="rollDie" class="words">
@@ -55,7 +55,8 @@
     </div>
 
     <div class="buttons">
-      <input type="button" value="Make Accusation" id="makeAccusation" class="btn hidden" />
+      <input type="button" value="Make Suggestion" id="makeSuggestionBtn" class="btn hidden" />
+      <input type="button" value="Make Accusation" id="makeAccusationBtn" class="btn hidden" />
       <input type="button" value="Take Secret Passage" id="takeSecretPassage" class="btn hidden" />
       <input type="button" value="Roll" id="rollForTurn" class="btn" />
     </div>
@@ -131,22 +132,150 @@
     </div>
   </div>
 	  
-  <div id="makeAccusation" class="popup">
-    <div class="words">
-	  <p>Make an accusation:</p>
+  <div id="confirmAccusation" class="popup">
+  </div>
+	  
+  <div id="enterRoom" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+	  <div class="modal-content"> 
+	    <div class="modal-header">
+		  <h4 class="modal-title">Suggestion or Final  Accusation?</h4>  
+		</div>
+		<div class="modal-body">
+		  <input type="button" class="btn" data-toggle="modal" data-target="#makeSuggestion" value="Suggestion" id="suggestionBtn" name="suggestionBtn" />
+		  <input type="button" value="Final Accusation" id="accusationBtn" name="accusationBtn" data-toggle="modal" data-target="#makeAccusation" />
+		</div>
+	  </div>
 	</div>
-		
-	<div id="accuse">
-	  <form id="accusation">
-	    <label for="who">Suspect:</label>
-	    <label for = "where">With:</label>
-	    <label for="where">Room:</label>
-	    <input type="submit" value="submit">
-	  </form>
+  </div>
+	  
+  <div id="makeSuggestion" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+	  <div class="modal-content">
+	    <div class="modal-header">
+		  <h4 class="modal-title">Making a Suggestion</h4>
+		</div>
+		<div class="modal-body">
+		  <form class="form-horizontal" id="suggestionForm">
+			<div class="form-group">
+			  <label for="sSuspectGuess" class="col-xs-2">Who</label>
+			  <div class="col-xs-10">
+			    <select id="sSuspectGuess" class="form-control">
+				  <option value="ariel">Ariel</option>
+				  <option value="aurora">Aurora</option>
+				  <option value="belle">Belle</option>
+				  <option value="jasmine">Jasmine</option>
+				  <option value="pocahontas">Pocahontas</option>
+				  <option value="tiana">Tiana</option>
+				</select>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="sWeaponGuess" class="form-label col-xs-2">With</label>
+			  <div class="col-xs-10">
+			    <select id="sWeaponGuess" class="form-control">
+				  <option value="lamp">Lamp</option>
+				  <option value="rose">Rose</option>
+				  <option value="spear">Spear</option>
+				  <option value="spindle">Spindle</option>
+				  <option value="tiara">Tiara</option>
+				  <option value="trident">Trident</option>
+				</select>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="sRoomGuess" class="form-label col-xs-2">Where</label>
+			  <div class="col-xs-10">
+			    <select class="disabled" id="sRoomGuess" class="form-control">
+				  <option value="ballroom">Ballroom</option>
+				  <option value="cave">Cave</option>
+				  <option value="cottage">Cottage</option>
+				  <option value="forest">Forest</option>
+				  <option value="garden">Garden</option>
+				  <option value="grotto">Grotto</option>
+				  <option value="kitchen">Kitchen</option>
+				  <option value="tent">Tent</option>
+				  <option value="tower">Tower</option>
+				</select>
+			  </div>
+			</div>
+		  </form>
+		  
+		  <div id="suggestionConfirmation" class="hidden">
+		    <span id="sSuspect"></span> in the <span id="sRoom"></span> with the <span id="sWeapon"></span>
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <input type="button" value="Go" class="btn" id="suggestionGo" />
+		  <input type="button" value="Confirm" class="btn hidden" id="suggestionConfirm" />
+		</div>
+	  </div>
 	</div>
-		
-    <div id="confirmAccusation">
-	  <p id="confirmation"></p>
+  </div>
+  
+  <div id="makeAccusation" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+	  <div class="modal-content">
+	    <div class="modal-header">
+		  <h4 class="modal-title">Final Accusation!</h4>
+		</div>
+		<div class="modal-body">
+		  <form class="form-horizontal" id="accusationForm">
+			<div class="form-group">
+			  <label for="aSuspectGuess">Who</label>
+			  <div class="col-xs-10">
+			    <select id="aSuspectGuess">
+				  <option value="">Select Suspect</option>
+				  <option value="ariel">Ariel</option>
+				  <option value="aurora">Aurora</option>
+				  <option value="belle">Belle</option>
+				  <option value="jasmine">Jasmine</option>
+				  <option value="pocahontas">Pocahontas</option>
+				  <option value="tiana">Tiana</option>
+				</select>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="aWeaponGuess">With</label>
+			  <div class="col-xs-10">
+			    <select id="aWeaponGuess">
+				  <option value="">Select Weapon</option>
+				  <option value="lamp">Lamp</option>
+				  <option value="rose">Rose</option>
+				  <option value="spear">Spear</option>
+				  <option value="spindle">Spindle</option>
+				  <option value="tiara">Tiara</option>
+				  <option value="trident">Trident</option>
+				</select>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="aRoomGuess">Where</label>
+			  <div class="col-xs-10">
+			    <select id="aRoomGuess">
+				  <option value="ballroom">Ballroom</option>
+				  <option value="cave">Cave</option>
+				  <option value="cottage">Cottage</option>
+				  <option value="forest">Forest</option>
+				  <option value="garden">Garden</option>
+				  <option value="grotto">Grotto</option>
+				  <option value="kitchen">Kitchen</option>
+				  <option value="tent">Tent</option>
+				  <option value="tower">Tower</option>
+				</select>
+			  </div>
+			</div>
+		  </form>
+		  
+		  <div id="accusationConfirmation" class="hidden">
+		    <span id="aSuspect"></span> in the <span id="aRoom"></span> with the <span id="aWeapon"></span>
+		  </div>
+		</div>
+		<div class="modal-footer">
+		  <input type="button" value="Go" class="btn" id="suggestionGo" />
+		  <input type="button" value="Confirm" class="btn hidden" id="suggestionConfirm" />
+		</div>
+	  </div>
 	</div>
   </div>
 	  

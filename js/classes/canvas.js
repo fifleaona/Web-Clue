@@ -9,6 +9,7 @@ function Canvas(id)
  
   this.spaceSelection = false;
   var scope = this;
+  this.squareSize = 25;
 
   this.toggleHighlighted = function(nodeIndex, edgeIndex)
   {
@@ -43,11 +44,12 @@ function Canvas(id)
 	return new Point(this.img.width, this.img.height);
   }
   
-  this.drawLine = function(startPoint, endPoint)
+  this.drawLine = function(startPoint, endPoint, mod)
   {
-    this.ctx.beginPath();
-	this.ctx.moveTo(startPoint.x*this.squareSize, startPoint.y*this.squareSize);
-	this.ctx.lineTo(endPoint.x*this.squareSize, endPoint.y*this.squareSize);
+	//this.setStrokeSize(5);
+    //this.ctx.beginPath();
+	//this.ctx.moveTo(startPoint.x*mod, startPoint.y*mod);
+	this.ctx.lineTo(endPoint.x*mod, endPoint.y*mod);
 	this.ctx.stroke();
   }
   
@@ -85,6 +87,37 @@ function Canvas(id)
 	this.drawSquare(startPoint, modifier);
 	
 	this.ctx.fill();
+  }
+  
+  this.drawShape = function(ptArr, modifier)
+  {
+    if(modifier==0 || modifier==null)
+	{
+	  modifier=1;
+	}
+	
+	this.ctx.moveTo(ptArr[0].x*modifier,ptArr[0].y*modifier);
+	
+	for(var i=1; i<ptArr.length; i++)
+	{
+	  this.ctx.lineTo(ptArr[i].x*modifier,ptArr[i].y*modifier);
+	}
+	
+	this.ctx.lineTo(ptArr[0].x*modifier,ptArr[0].y*modifier);
+  }
+  
+  this.drawFilledShape = function(ptArr, mod)
+  {
+    this.ctx.beginPath();
+	this.drawShape(ptArr,mod);
+	this.ctx.fill();
+  }
+  
+  this.drawEmptyShape = function(ptArr, mod)
+  {
+    this.ctx.beginPath();
+	this.drawShape(ptArr,mod);
+	this.ctx.stroke();
   }
   
   this.drawCircle = function(centerPoint, modifier, radius)

@@ -11,7 +11,6 @@ function Dice(num)
     for(var i = 0; i< this.numDice; i++)
 	{
 	  this.currentRoll += this.sides.randomElement();
-      console.log(this.currentRoll + ":)")
 	}
   }
   

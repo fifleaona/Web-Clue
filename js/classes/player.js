@@ -11,6 +11,9 @@ function Player(name, character, num, radius)
   this.accusedBy = '';
   this.secretPassage = false;
   this.active = false;
+  this.knownH = 0;
+  this.knownW = 0;
+  this.inRoom = false;
   
   // canvas variables
   this.piece = null;
@@ -113,11 +116,13 @@ function Player(name, character, num, radius)
 	}
   }
   
-  this.assignDiv = function(i, w, h)
+  this.assignDiv = function(i, w, h, kw, kh)
   {	
 	// assign player piece div
 	document.getElementById(this.divBase+'piece').style.display = "block";
 	this.piece.setDim(w,h);
+	this.knownW = kw;
+	this.knownH = kh;
 	//this.piece = new Canvas(this.divBase+'piece');
 	//this.piece.canvas.width = w;
 	//this.piece.canvas.height = h;

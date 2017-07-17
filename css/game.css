@@ -80,6 +80,11 @@ and (-webkit-min-device-pixel-ratio: 2)
   z-index: 79;
 }
 
+.modal-backdrop
+{
+  z-index: -1;
+}
+
 #p1piece, #p2piece, #p3piece,
 #p4piece, #p5piece, #p6piece,
 #p1known, #p2known, #p3known,
