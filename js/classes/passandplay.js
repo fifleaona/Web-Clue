@@ -24,6 +24,8 @@ function Game(arr,numDie,squareSize)
   this.dice = new Dice(numDie);
   this.lastPlayersActions = "";
   this.spaceSelection = false;
+  this.atDoor = false;
+  this.roomIndex = 0;
   this.activePlayer = -1;
   var scope = this;
   
@@ -46,34 +48,12 @@ function Game(arr,numDie,squareSize)
   {  
     for(var i=0; i<scope.players.length; i++)
 	{
-	  scope.players[i].assignDiv(i, boardBkg.width, boardBkg.height);
+	  scope.players[i].assignDiv(i, boardBkg.width, boardBkg.height, knownBkg.width, knownBkg.height);
 	  scope.players[i].drawPiece();
 	}
 	
 	this.board.setImg(boardBkg.src);
 	this.known.setImg(knownBkg);
-  }
-  
-  this.setRooms = function() // move this function to game.js
-  {
-    this.rooms.push(new Room());
-	this.rooms[0].setBallroom();
-	this.rooms.push(new Room());
-	this.rooms[1].setCave();
-	this.rooms.push(new Room());
-	this.rooms[2].setCottage();
-	this.rooms.push(new Room());
-	this.rooms[3].setForest();
-	this.rooms.push(new Room());
-	this.rooms[4].setGarden();
-	this.rooms.push(new Room());
-	this.rooms[5].setGrotto();
-	this.rooms.push(new Room());
-	this.rooms[6].setKitchen();
-	this.rooms.push(new Room());
-	this.rooms[7].setTent();
-	this.rooms.push(new Room());
-	this.rooms[8].setTower();
   }
   
   // GET FUNCTIONS
@@ -82,6 +62,11 @@ function Game(arr,numDie,squareSize)
   this.addSpace = function(node1, node2) // move this function to game.js
   {
 	this.spaces.addEdge(node1, node2);
+  }
+  
+  this.addRoom = function(name, walls, doors, secretPassage)
+  {
+    this.rooms.push(new Room(name, walls, doors, secretPassage));
   }
   
   // MISC FUNCTIONS
@@ -168,18 +153,42 @@ function Game(arr,numDie,squareSize)
   {
     this.spaceSelection = true;
 	var index = this.spaces.findNode(pos);
+	var x = 0;
+	var found = false;
 	// display possible spaces
+	if(this.players[this.activePlayer].inRoom)
+	{
+	  index = this.spaces.findNode(this.rooms[this.roomIndex]);
+	}
 	for(var i=0; i<this.spaces.node_list[index].edge_list.length; i++)
 	{
 	  for(var j=0; j<this.players.length; j++)
 	  {
+		// check to make sure there isn't a player inhabiting that space
+		// player can't move into a space that's got someone in it ;)
 	    if(!(this.spaces.node_list[index].edge_list[i].x == this.players[j].getPosition().x &&
 		   this.spaces.node_list[index].edge_list[i].y == this.players[j].getPosition().y))
 		{
-	      this.players[this.activePlayer].highlightSquare(this.spaces.node_list[index].edge_list[i], this.tileSize);
-          var loc = this.spaces.findNode(this.spaces.node_list[index].edge_list[i]);
+		  // check to see if node is a word
+		  if(typeof this.spaces.node_list[index].edge_list[i] == 'string')
+		  {
+		    // find room coordinates in Room array
+			while(this.rooms[x].name.toLowerCase()!=this.spaces.node_list[index].edge_list[i].toLowerCase() && x!=this.rooms.length)
+			{
+			  x++;
+			}
+			// fill in room
+			this.rooms[x].draw(this.players[this.activePlayer].piece.canvas, this.tileSize);
+			this.atDoor = true;
+			this.roomIndex = x;
+		  }
+		  else
+		  {
+	        this.players[this.activePlayer].highlightSquare(this.spaces.node_list[index].edge_list[i], this.tileSize);
+            var loc = this.spaces.findNode(this.spaces.node_list[index].edge_list[i]);
          
-          this.spaces.node_list[loc].highlighted=true;
+            this.spaces.node_list[loc].highlighted=true;
+		  }
 		}
 	  }
 	}
@@ -210,7 +219,19 @@ function Game(arr,numDie,squareSize)
   this.isSpaceHighlighted = function(pt)
   {
 	var index = this.spaces.findNode(pt);
-	if(index != null)
+	if(this.atDoor)
+	{
+	  // if a room is highlighted,
+	  // check to see if the click occurred within
+	  // the highlighted room
+	  var test = this.rooms[this.roomIndex].findSpace(pt);
+	  if(test)
+	  {
+		this.players[this.activePlayer].inRoom = true;
+	    return true;
+	  }
+	}
+	else if(index != null)
 	{
 	  return this.spaces.node_list[index].highlighted;
 	}
@@ -261,7 +282,12 @@ function Game(arr,numDie,squareSize)
 		scope.movePiece(tempPt);
 		
 		// if numSpaces != 0
-		if(scope.dice.getVal() != 0)
+		if (scope.players[scope.activePlayer].inRoom)
+		{
+		  // start suggestions
+		  $('#enterRoom').show();
+		}
+		else if(scope.dice.getVal() != 0)
 		{
 		  // call select space
 		  scope.showSpaces(tempPt);
@@ -314,4 +340,24 @@ function Game(arr,numDie,squareSize)
     $('#turnOptions').slideToggle(0);
     $('.absoluteWrapper').slideToggle(0);
   });
+  
+  
+  
+  // ACCUSATION/SUGGESTION WORKFLOW
+  $('#suggestionGo').click(function()
+  {
+    $('#suggestionForm').toggle();
+    $('#suggestionConfirmation').toggle();
+    $('#suggestionGo').toggle();
+    $('#suggestionConfirm').toggle();
+	
+	$('sSuspect').text($('#sSuspectGuess').find(':selected').text());
+	$('sWeapon').text($('#sWeaponGuss').find(':selected').text());
+	$('#sRoom').text(scope.rooms[scope.roomIndex].name);
+  });
+  
+  this.startSuggestion = function()
+  {
+    
+  }
 }
